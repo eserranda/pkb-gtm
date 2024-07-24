@@ -19,7 +19,7 @@
                       href="#" role="button" aria-haspopup="false" aria-expanded="false">
                       <img src="{{ asset('assets') }}/images/users/avatar-1.jpg" alt="user-image"
                           class="rounded-circle">
-                      <span class="ml-1">Indra <i class="mdi mdi-chevron-down"></i> </span>
+                      <span class="ml-1">{{ Auth::user()->name }}<i class="mdi mdi-chevron-down mx-2"></i> </span>
                   </a>
                   <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
                       <!-- item-->
@@ -34,7 +34,7 @@
                       </a>
 
                       <!-- item-->
-                      <a href="javascript:void(0);" class="dropdown-item notify-item">
+                      {{-- <a href="javascript:void(0);" class="dropdown-item notify-item">
                           <i class="fe-settings"></i>
                           <span>Settings</span>
                       </a>
@@ -43,12 +43,12 @@
                       <a href="javascript:void(0);" class="dropdown-item notify-item">
                           <i class="fe-lock"></i>
                           <span>Lock Screen</span>
-                      </a>
+                      </a> --}}
 
                       <div class="dropdown-divider"></div>
 
                       <!-- item-->
-                      <a href="javascript:void(0);" class="dropdown-item notify-item">
+                      <a href="/logout" class="dropdown-item notify-item">
                           <i class="fe-log-out"></i>
                           <span>Logout</span>
                       </a>
