@@ -4,7 +4,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="addModalLabel">Edit Data Rencana Anggaran</h5>
-                <button type="button" class="close" onclick="closeModal()">
+                <button type="button" class="close" onclick="closeModalEdit()">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -57,7 +57,7 @@
 
 @push('scripts')
     <script>
-        function closeModal() {
+        function closeModalEdit() {
             const invalidInputs = document.querySelectorAll('.is-invalid');
             invalidInputs.forEach(invalidInput => {
                 invalidInput.value = '';
