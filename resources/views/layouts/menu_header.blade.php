@@ -39,13 +39,13 @@
                 </li>
 
                 <li class="has-submenu">
-                    <a href="index.html"><i class="mdi mdi-account-key-outline"></i>Users</a>
+                    <a href="users"><i class="mdi mdi-account-key-outline"></i>Users</a>
                 </li>
 
                 <li class="has-submenu">
-                    <a href="#"> <i class="fe-mail"></i>Kegiatan</a>
+                    <a href="#"> <i class="fe-settings"></i>Pengaturan</a>
                     <ul class="submenu">
-                        <li><a href="daftar-kegiatan">Daftar Kegiatan</a></li>
+                        <li><a href="roles">Role User Login</a></li>
                         <li><a href="email-read.html">Read Email</a></li>
                         <li><a href="email-compose.html">Compose Email</a></li>
                     </ul>
