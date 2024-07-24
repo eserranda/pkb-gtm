@@ -40,7 +40,7 @@
         </div>
     </div> <!-- end row -->
 
-    @include('pages.anggota.add')
+    @include('pages.program.add')
 @endsection
 
 @push('scripts')
