@@ -3,8 +3,8 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addModalLabel">Add Data Program</h5>
-                <button type="button" class="close" onclick="closeModalAdd()">
+                <h5 class="modal-title" id="addModalLabel">Tambah Data Rencana Anggaran</h5>
+                <button type="button" class="close" onclick="closeModal()">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -12,85 +12,39 @@
                 <form id="addForm">
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label class="col-form-label">Nama Program
-                                <span class="text-danger">*</span>
-                            </label>
-                            <input type="text" class="form-control" id="nama_program" name="nama_program"
-                                placeholder="Program">
-                            <div class="invalid-feedback"></div>
-                        </div>
-
-                        <div class="form-group col-md-6">
-                            {{-- <label class="col-form-label">Bidang</label>
-                            <input type="text" class="form-control" id="bidang" name="bidang"
-                                placeholder="Bidang"> --}}
                             <label class="col-form-label">Bidang : </label>
-                            <select class="form-control" name="bidang" id="bidang">
+                            <select class="form-control" name="jenis_anggaran" id="jenis_anggaran">
                                 <option value="" selected disabled>Pilih bidang</option>
-                                <option value="Bidang I">Bidang I</option>
-                                <option value="Bidang II">Bidang II</option>
-                                <option value="Bidang III">Bidang III</option>
-                                <option value="Bidang Umum Dan Kesekretariatan">Bidang Umum Dan Kesekretariatan</option>
+                                <option value="Penerimaan Rutin">Penerimaan Rutin</option>
+                                <option value="Belanja Rutin">Belanja Rutin</option>
+                                <option value="Belanja Bidang I">Bidang I</option>
+                                <option value="Belanja Bidang II">Belanja Bidang II</option>
+                                <option value="Belanja Bidang III">Belanja Bidang III</option>
+                                <option value="Belanja Bidang III">Belanja Bidang III</option>
+                                <option value="Biaya Pengadaan">Biaya Pengadaan</option>
+                                <option value="Belanja lain-lain">Belanja lain-lain</option>
                             </select>
                             <div class="invalid-feedback"></div>
                         </div>
 
-                    </div>
-
-                    <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label class="col-form-label">Tujuan</label>
-                            <input type="text" class="form-control" id="tujuan" name="tujuan"
-                                placeholder="Tujuan">
-                            <div class="invalid-feedback"></div>
-                        </div>
-
-                        <div class="form-group col-md-6">
-                            <label class="col-form-label">Bentuk</label>
-                            <input type="text" class="form-control" id="bentuk" name="bentuk"
-                                placeholder="Bentuk">
-                            <div class="invalid-feedback"></div>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label class="col-form-label">Sumber Anggaran</label>
+                            <label class="col-form-label">Sumber Anggaran
+                                <span class="text-danger">*</span>
+                            </label>
                             <input type="text" class="form-control" id="sumber_anggaran" name="sumber_anggaran"
                                 placeholder="Sumber Anggaran">
                             <div class="invalid-feedback"></div>
                         </div>
 
-                        <div class="form-group col-md-6">
-                            <label class="col-form-label">Penanggung Jawab</label>
-                            <input type="text" class="form-control" id="penanggung_jawab" name="penanggung_jawab"
-                                placeholder="Penanggung Jawab">
-                            <div class="invalid-feedback"></div>
-                        </div>
                     </div>
+
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label class="col-form-label">Biaya</label>
-                            <input type="text" class="form-control" id="biaya" name="biaya"
-                                placeholder="Sumber Anggaran">
+                            <label class="col-form-label">Nominal</label>
+                            <input type="number" class="form-control" id="nominal_anggaran" name="nominal_anggaran"
+                                placeholder="Nominal Anggaran">
                             <div class="invalid-feedback"></div>
                         </div>
-
-                        <div class="form-group col-md-6">
-                            <label class="col-form-label">Waktu</label>
-                            <input type="text" class="form-control" id="waktu" name="waktu"
-                                placeholder="Penanggung Jawab">
-                            <div class="invalid-feedback"></div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label class="col-form-label">Tempat</label>
-                            <input type="text" class="form-control" id="tempat" name="tempat"
-                                placeholder="Sumber Anggaran">
-                            <div class="invalid-feedback"></div>
-                        </div>
-
                     </div>
 
                     <button type="submit" class="btn btn-primary">Save</button>
@@ -102,7 +56,7 @@
 
 @push('scripts')
     <script>
-        function closeModalAdd() {
+        function closeModal() {
             const invalidInputs = document.querySelectorAll('.is-invalid');
             invalidInputs.forEach(invalidInput => {
                 invalidInput.value = '';
@@ -127,7 +81,7 @@
             const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
 
             try {
-                const response = await fetch('/program/store', {
+                const response = await fetch('/rencana-anggaran/store', {
                     method: 'POST',
                     headers: {
                         'Accept': 'application/json',

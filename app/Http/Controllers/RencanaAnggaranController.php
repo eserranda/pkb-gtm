@@ -2,27 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Program;
 use Illuminate\Http\Request;
+use App\Models\RencanaAnggaran;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
 
-class ProgramController extends Controller
+class RencanaAnggaranController extends Controller
 {
 
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $bidangFilter = $request->input('bidang');
+            $filterData = $request->input('filter');
 
-            $query = Program::query();
-            if ($bidangFilter) {
-                $query->where('bidang', $bidangFilter);
+            $query = RencanaAnggaran::query();
+            if ($filterData) {
+                $query->where('jenis_anggaran', $filterData);
             }
 
             $data = $query->latest('created_at')->get();
 
-            // $data = Program::latest('created_at')->get();
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
@@ -33,28 +32,25 @@ class ProgramController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        return view('pages.program.index');
+        return view('pages.rencana-anggaran.index');
     }
 
 
     public function findById($id)
     {
-        $data = Program::find($id);
+        $data = RencanaAnggaran::find($id);
         return response()->json($data);
     }
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nama_program' => 'required',
-            'bidang' => 'required',
-            'tujuan' => 'required',
-            'bentuk' => 'required',
+            'jenis_anggaran' => 'required',
             'sumber_anggaran' => 'required',
-            'penanggung_jawab' => 'required',
-            'waktu' => 'required',
+            'nominal_anggaran' => 'required|numeric',
         ], [
             'required' => ':attribute harus diisi',
+            'numeric' => ':attribute harus berupa angka',
         ]);
 
         if ($validator->fails()) {
@@ -64,35 +60,27 @@ class ProgramController extends Controller
             ], 422);
         }
 
-        $save = Program::create([
-            'nama_program' => $request->nama_program,
-            'bidang' => $request->bidang,
-            'tujuan' => $request->tujuan,
-            'bentuk' => $request->bentuk,
-            'sumber_anggaran' => $request->sumber_anggaran,
-            'penanggung_jawab' => $request->penanggung_jawab,
-            'biaya' => $request->biaya,
-            'waktu' => $request->waktu,
-            'tempat' => $request->tempat,
+        $save = RencanaAnggaran::create([
+            'jenis_anggaran' => $request->input('jenis_anggaran'),
+            'sumber_anggaran' => $request->input('sumber_anggaran'),
+            'nominal_anggaran' => $request->input('nominal_anggaran'),
         ]);
 
         if ($save) {
             return response()->json([
-                'success' => true,
-                'messages' => 'Program baru ditambahkan'
-            ], 201);
+                'success' => true
+            ]);
         } else {
             return response()->json([
-                'success' => false,
-                'messages' => 'Program gagal ditambahkan'
-            ], 409);
+                'success' => false
+            ]);
         }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Program $program)
+    public function show(RencanaAnggaran $rencanaAnggaran)
     {
         //
     }
@@ -100,7 +88,7 @@ class ProgramController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Program $program)
+    public function edit(RencanaAnggaran $rencanaAnggaran)
     {
         //
     }
@@ -108,20 +96,15 @@ class ProgramController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Program $program)
+    public function update(Request $request, RencanaAnggaran $rencanaAnggaran)
     {
         $validator = Validator::make($request->all(), [
-            'edit_nama_program' => 'required',
-            'edit_bidang' => 'required',
-            'edit_tujuan' => 'required',
-            'edit_bentuk' => 'required',
+            'edit_jenis_anggaran' => 'required',
             'edit_sumber_anggaran' => 'required',
-            'edit_penanggung_jawab' => 'required',
-            // 'edit_biaya' => 'required',
-            'edit_waktu' => 'required',
-            // 'edit_tempat' => 'required',
+            'edit_nominal_anggaran' => 'required|numeric',
         ], [
             'required' => ':attribute harus diisi',
+            'numeric' => ':attribute harus berupa angka',
         ]);
 
         if ($validator->fails()) {
@@ -131,38 +114,30 @@ class ProgramController extends Controller
             ], 422);
         }
 
-        $update = Program::where('id', $request->id)->update([
-            'nama_program' => $request->edit_nama_program,
-            'bidang' => $request->edit_bidang,
-            'tujuan' => $request->edit_tujuan,
-            'bentuk' => $request->edit_bentuk,
-            'sumber_anggaran' => $request->edit_sumber_anggaran,
-            'penanggung_jawab' => $request->edit_penanggung_jawab,
-            'biaya' => $request->edit_biaya,
-            'waktu' => $request->edit_waktu,
-            'tempat' => $request->edit_tempat,
+        $update = $rencanaAnggaran::where('id', $request->input('id'))->update([
+            'jenis_anggaran' => $request->input('edit_jenis_anggaran'),
+            'sumber_anggaran' => $request->input('edit_sumber_anggaran'),
+            'nominal_anggaran' => $request->input('edit_nominal_anggaran'),
         ]);
 
         if ($update) {
             return response()->json([
-                'success' => true,
-                'messages' => 'Program berhasil diubah'
-            ], 200);
+                'success' => true
+            ]);
         } else {
             return response()->json([
-                'success' => false,
-                'messages' => 'Program gagal diubah'
-            ], 409);
+                'success' => false
+            ]);
         }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Program $program, $id)
+    public function destroy(RencanaAnggaran $rencanaAnggaran, $id)
     {
         try {
-            $deleted = $program::findOrFail($id);
+            $deleted = $rencanaAnggaran::findOrFail($id);
             $deleted->delete();
 
             return response()->json(['status' => true, 'message' => 'Data berhasil dihapus'], 200);

@@ -7,6 +7,7 @@ use App\Http\Controllers\AnggotaController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\PengurusController;
 use App\Http\Controllers\DaftarKegiatanController;
+use App\Http\Controllers\RencanaAnggaranController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,16 +24,29 @@ Route::get('/', function () {
     return view('pages.dashboard.index');
 });
 
-Route::prefix('program')->controller(ProgramController::class)->group(function () {
-    Route::get('/', 'index');
+Route::prefix('rencana-anggaran')->controller(RencanaAnggaranController::class)->group(function () {
+    Route::get('/', 'index')->name('rencana-anggaran.index');
     Route::get('/create', 'create');
+    Route::get('/findById/{id}', 'findById');
     Route::post('/store', 'store');
+    Route::post('/update', 'update');
+    Route::delete('/destroy/{id}', 'destroy');
+});
+
+Route::prefix('program')->controller(ProgramController::class)->group(function () {
+    Route::get('/', 'index')->name('program.index');
+    Route::get('/create', 'create');
+    Route::get('/findById/{id}', 'findById');
+    Route::post('/store', 'store');
+    Route::post('/update', 'update');
+    Route::delete('/destroy/{id}', 'destroy');
 });
 
 Route::prefix('daftar-kegiatan')->controller(DaftarKegiatanController::class)->group(function () {
     Route::get('/create', 'create');
     Route::get('/', 'index');
     Route::post('/store', 'store');
+    Route::delete('/destroy/{id}', 'destroy');
 });
 
 // Route::prefix('pengurus')->controller(PengurusController::class)->group(function () {

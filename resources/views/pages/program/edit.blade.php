@@ -1,21 +1,22 @@
 <!-- resources/views/anggota/add.blade.php -->
-<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addModalLabel">Add Data Program</h5>
-                <button type="button" class="close" onclick="closeModalAdd()">
+                <h5 class="modal-title" id="addModalLabel">Edit Data Program</h5>
+                <button type="button" class="close" onclick="closeModal()">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form id="addForm">
+                <form id="editForm">
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label class="col-form-label">Nama Program
                                 <span class="text-danger">*</span>
                             </label>
-                            <input type="text" class="form-control" id="nama_program" name="nama_program"
+                            <input type="hidden" class="form-control" id="edit_id" name="id">
+                            <input type="text" class="form-control" id="edit_nama_program" name="edit_nama_program"
                                 placeholder="Program">
                             <div class="invalid-feedback"></div>
                         </div>
@@ -25,7 +26,7 @@
                             <input type="text" class="form-control" id="bidang" name="bidang"
                                 placeholder="Bidang"> --}}
                             <label class="col-form-label">Bidang : </label>
-                            <select class="form-control" name="bidang" id="bidang">
+                            <select class="form-control" name="edit_bidang" id="edit_bidang">
                                 <option value="" selected disabled>Pilih bidang</option>
                                 <option value="Bidang I">Bidang I</option>
                                 <option value="Bidang II">Bidang II</option>
@@ -40,14 +41,14 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label class="col-form-label">Tujuan</label>
-                            <input type="text" class="form-control" id="tujuan" name="tujuan"
+                            <input type="text" class="form-control" id="edit_tujuan" name="edit_tujuan"
                                 placeholder="Tujuan">
                             <div class="invalid-feedback"></div>
                         </div>
 
                         <div class="form-group col-md-6">
                             <label class="col-form-label">Bentuk</label>
-                            <input type="text" class="form-control" id="bentuk" name="bentuk"
+                            <input type="text" class="form-control" id="edit_bentuk" name="edit_bentuk"
                                 placeholder="Bentuk">
                             <div class="invalid-feedback"></div>
                         </div>
@@ -56,29 +57,29 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label class="col-form-label">Sumber Anggaran</label>
-                            <input type="text" class="form-control" id="sumber_anggaran" name="sumber_anggaran"
-                                placeholder="Sumber Anggaran">
+                            <input type="text" class="form-control" id="edit_sumber_anggaran"
+                                name="edit_sumber_anggaran" placeholder="Sumber Anggaran">
                             <div class="invalid-feedback"></div>
                         </div>
 
                         <div class="form-group col-md-6">
                             <label class="col-form-label">Penanggung Jawab</label>
-                            <input type="text" class="form-control" id="penanggung_jawab" name="penanggung_jawab"
-                                placeholder="Penanggung Jawab">
+                            <input type="text" class="form-control" id="edit_penanggung_jawab"
+                                name="edit_penanggung_jawab" placeholder="Penanggung Jawab">
                             <div class="invalid-feedback"></div>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label class="col-form-label">Biaya</label>
-                            <input type="text" class="form-control" id="biaya" name="biaya"
+                            <input type="text" class="form-control" id="edit_biaya" name="edit_biaya"
                                 placeholder="Sumber Anggaran">
                             <div class="invalid-feedback"></div>
                         </div>
 
                         <div class="form-group col-md-6">
                             <label class="col-form-label">Waktu</label>
-                            <input type="text" class="form-control" id="waktu" name="waktu"
+                            <input type="text" class="form-control" id="edit_waktu" name="edit_waktu"
                                 placeholder="Penanggung Jawab">
                             <div class="invalid-feedback"></div>
                         </div>
@@ -86,7 +87,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label class="col-form-label">Tempat</label>
-                            <input type="text" class="form-control" id="tempat" name="tempat"
+                            <input type="text" class="form-control" id="edit_tempat" name="edit_tempat"
                                 placeholder="Sumber Anggaran">
                             <div class="invalid-feedback"></div>
                         </div>
@@ -102,7 +103,7 @@
 
 @push('scripts')
     <script>
-        function closeModalAdd() {
+        function closeModal() {
             const invalidInputs = document.querySelectorAll('.is-invalid');
             invalidInputs.forEach(invalidInput => {
                 invalidInput.value = '';
@@ -114,12 +115,12 @@
                 }
             });
 
-            const form = document.getElementById('addForm');
+            const form = document.getElementById('editForm');
             form.reset();
-            $('#addModal').modal('hide');
+            $('#editModal').modal('hide');
         }
 
-        document.getElementById('addForm').addEventListener('submit', async (event) => {
+        document.getElementById('editForm').addEventListener('submit', async (event) => {
             event.preventDefault();
 
             const form = event.target;
@@ -127,7 +128,7 @@
             const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
 
             try {
-                const response = await fetch('/program/store', {
+                const response = await fetch('/program/update', {
                     method: 'POST',
                     headers: {
                         'Accept': 'application/json',
@@ -175,7 +176,7 @@
                     });
 
                     $('#datatable').DataTable().ajax.reload();
-                    $('#addModal').modal('hide');
+                    $('#editModal').modal('hide');
                 }
             } catch (error) {
                 console.error(error);

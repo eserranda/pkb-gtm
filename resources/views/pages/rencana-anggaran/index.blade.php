@@ -10,7 +10,7 @@
 @endpush
 
 @section('page_title')
-    Program
+    Rencana Angagaran
 @endsection
 @section('content')
     <div class="row">
@@ -18,15 +18,18 @@
             <div class="card-box table-responsive">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <div class="d-flex align-items-center ">
-                        <select class="form-control col-md-8" id="filterBidang">
-                            {{-- <h5 class="col-md-2 mx-0">Filter : </h5> --}}
-                            <option value="" selected disabled>Pilih bidang</option>
+                        <select class="form-control col-md-12" id="filterData">
+                            <option value="" selected disabled>Filter Anggaran</option>
+                            <option value="Penerimaan">Penerimaan</option>
+                            <option value="Belanja">Belanja</option>
                             <option value="Bidang I">Bidang I</option>
                             <option value="Bidang II">Bidang II</option>
                             <option value="Bidang III">Bidang III</option>
-                            <option value="Bidang Umum Dan Kesekretariatan">Bidang Umum Dan Kesekretariatan</option>
+                            <option value="Biaya Pengadaan">Biaya Pengadaan</option>
+                            <option value="Lain-lain">Lain-lain</option>
                         </select>
-                        <button type="button" class="btn btn-light waves-effect col-2 mx-1" id="reload">
+
+                        <button type="button" class="btn btn-light waves-effect col-3 mx-2" id="reload">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20"
                                 viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none"
                                 stroke-linecap="round" stroke-linejoin="round">`
@@ -51,15 +54,9 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Nama Program</th>
-                            <th>Bidang</th>
-                            <th>Tujuan</th>
-                            <th>Bentuk</th>
+                            <th>Jenis Anggaran</th>
                             <th>Sumber Anggaran</th>
-                            <th>Penanggung Jawab</th>
-                            <th>Biaya</th>
-                            <th>Waktu</th>
-                            <th>Tempat</th>
+                            <th>Nominal</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -71,8 +68,8 @@
         </div>
     </div> <!-- end row -->
 
-    @include('pages.program.add')
-    @include('pages.program.edit')
+    @include('pages.rencana-anggaran.add')
+    @include('pages.rencana-anggaran.edit')
 @endsection
 
 @push('scripts')
@@ -94,26 +91,25 @@
 
     <!-- Sweet Alert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {{-- <script src="{{ asset('assets') }}/libs/sweetalert2/sweetalert2.min.js"></script> --}}
+    {{-- <script src="{{ asset('assets') }}/js/pages/sweetalerts.init.js"></script> --}}
+
 
     <script>
         function edit(id) {
-            fetch('/program/findById/' + id)
+            fetch('/rencana-anggaran/findById/' + id)
                 .then(response => response.json())
                 .then(data => {
                     document.getElementById('edit_id').value = data.id;
-                    document.getElementById('edit_nama_program').value = data.nama_program;
-                    document.getElementById('edit_bidang').value = data.bidang;
                     document.getElementById('edit_sumber_anggaran').value = data.sumber_anggaran;
-                    document.getElementById('edit_penanggung_jawab').value = data.penanggung_jawab;
-                    document.getElementById('edit_biaya').value = data.biaya;
-                    document.getElementById('edit_tujuan').value = data.tujuan;
-                    document.getElementById('edit_waktu').value = data.waktu;
-                    document.getElementById('edit_tempat').value = data.tempat;
+                    document.getElementById('edit_jenis_anggaran').value = data.jenis_anggaran;
+                    document.getElementById('edit_nominal_anggaran').value = data.nominal_anggaran;
                 })
                 .catch(error => console.error(error));
             // show modal edit
             $('#editModal').modal('show');
         }
+
 
         async function hapus(id) {
             Swal.fire({
@@ -129,7 +125,7 @@
                 if (result.isConfirmed) {
                     var csrfToken = $('meta[name="csrf-token"]').attr('content');
                     $.ajax({
-                        url: '/program/destroy/' + id,
+                        url: '/rencana-anggaran/destroy/' + id,
                         type: 'DELETE',
                         data: {
                             _token: csrfToken
@@ -179,7 +175,7 @@
                 buttons: [{
                         extend: 'excel',
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+                            columns: [0, 1, 2, 3]
                         },
                         init: function(api, node, config) {
                             $(node).hide();
@@ -188,14 +184,14 @@
                     {
                         extend: 'print',
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+                            columns: [0, 1, 2, 3]
                         },
                         init: function(api, node, config) {
                             $(node).hide();
                         }
                     },
                 ],
-                ajax: "{{ route('program.index') }}",
+                ajax: "{{ route('rencana-anggaran.index') }}",
                 columns: [{
                         data: 'DT_RowIndex',
                         name: '#',
@@ -203,23 +199,8 @@
 
                     },
                     {
-                        data: 'nama_program',
-                        name: 'nama_program',
-                        orderable: false,
-                    },
-                    {
-                        data: 'bidang',
-                        name: 'bidang',
-                        orderable: false,
-                    },
-                    {
-                        data: 'tujuan',
-                        name: 'tujuan',
-                        orderable: false,
-                    },
-                    {
-                        data: 'bentuk',
-                        name: 'bentuk',
+                        data: 'jenis_anggaran',
+                        name: 'jenis_anggaran',
                         orderable: false,
                     },
                     {
@@ -228,23 +209,8 @@
                         orderable: false,
                     },
                     {
-                        data: 'penanggung_jawab',
-                        name: 'penanggung_jawab',
-                        orderable: false,
-                    },
-                    {
-                        data: 'biaya',
-                        name: 'biaya',
-                        orderable: false,
-                    },
-                    {
-                        data: 'waktu',
-                        name: 'waktu',
-                        orderable: false,
-                    },
-                    {
-                        data: 'tempat',
-                        name: 'tempat',
+                        data: 'nominal_anggaran',
+                        name: 'nominal_anggaran',
                         orderable: false,
                     },
                     {
@@ -256,15 +222,15 @@
                 ],
             });
 
-            $('#filterBidang').on('change', function() {
+            $('#filterData').on('change', function() {
                 const selectedBidang = $(this).val();
-                datatable.ajax.url('{{ route('program.index') }}?bidang=' + selectedBidang)
+                datatable.ajax.url('{{ route('rencana-anggaran.index') }}filter=' + selectedBidang)
                     .load();
             });
 
             $('#reload').on('click', function() {
-                $('#filterBidang').val('');
-                datatable.ajax.url('{{ route('program.index') }}').load();
+                $('#filterData').val('');
+                datatable.ajax.url('{{ route('rencana-anggaran.index') }}').load();
             });
         });
 

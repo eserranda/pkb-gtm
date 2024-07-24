@@ -24,9 +24,12 @@ class DaftarKegiatanController extends Controller
         return view('pages.daftar_kegiatan.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    public function findById($id)
+    {
+        $data = DaftarKegiatan::find($id);
+        return response()->json($data);
+    }
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -80,14 +83,22 @@ class DaftarKegiatanController extends Controller
      */
     public function update(Request $request, DaftarKegiatan $daftarKegiatan)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'nama_kegiatan' => 'required',
+        ], [
+            'required' => ':attribute harus diisi',
+        ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(DaftarKegiatan $daftarKegiatan)
+    public function destroy(DaftarKegiatan $daftarKegiatan, $id)
     {
-        //
+        try {
+            $deleted = $daftarKegiatan::findOrFail($id);
+            $deleted->delete();
+
+            return response()->json(['status' => true, 'message' => 'Data berhasil dihapus'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['status' => false, 'message' => 'Gagal menghapus data'], 500);
+        }
     }
 }

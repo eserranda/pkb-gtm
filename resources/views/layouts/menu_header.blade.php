@@ -35,7 +35,7 @@
                 </li>
 
                 <li class="has-submenu">
-                    <a href="index.html"><i class="mdi mdi-spa-outline"></i>Rencana Anggaran</a>
+                    <a href="rencana-anggaran"><i class="mdi mdi-spa-outline"></i>Rencana Anggaran</a>
                 </li>
 
                 <li class="has-submenu">

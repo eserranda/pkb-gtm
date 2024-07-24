@@ -5,19 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Program extends Model
+class RencanaAnggaran extends Model
 {
 
     protected $fillable = [
-        'nama_program',
-        'bidang',
-        'tujuan',
-        'bentuk',
+        'jenis_anggaran',
         'sumber_anggaran',
-        'penanggung_jawab',
-        'biaya',
-        'waktu',
-        'tempat',
+        'nominal_anggaran',
     ];
 
     use HasFactory;
