@@ -29,7 +29,7 @@ Route::get('logout', [UserController::class, 'logout'])->name('logout');
 
 Route::get('/', function () {
     return view('pages.dashboard.index');
-});
+})->name('dashboard')->middleware('auth');
 
 Route::prefix('users')->controller(UserController::class)->group(function () {
     Route::get('/', 'index')->name('users.index')->middleware('role:super_admin');
@@ -48,7 +48,7 @@ Route::prefix('roles')->controller(RoleController::class)->group(function () {
 });
 
 Route::prefix('rencana-anggaran')->controller(RencanaAnggaranController::class)->group(function () {
-    Route::get('/', 'index')->name('rencana-anggaran.index');
+    Route::get('/', 'index')->name('rencana-anggaran.index')->middleware('auth');
     Route::get('/create', 'create');
     Route::get('/findById/{id}', 'findById');
     Route::post('/store', 'store');
@@ -57,7 +57,7 @@ Route::prefix('rencana-anggaran')->controller(RencanaAnggaranController::class)-
 });
 
 Route::prefix('program')->controller(ProgramController::class)->group(function () {
-    Route::get('/', 'index')->name('program.index');
+    Route::get('/', 'index')->name('program.index')->middleware('auth');
     Route::get('/create', 'create');
     Route::get('/findById/{id}', 'findById');
     Route::post('/store', 'store');
@@ -66,7 +66,7 @@ Route::prefix('program')->controller(ProgramController::class)->group(function (
 });
 
 Route::prefix('daftar-kegiatan')->controller(DaftarKegiatanController::class)->group(function () {
-    Route::get('/create', 'create');
+    Route::get('/create', 'create')->middleware('auth');
     Route::get('/', 'index');
     Route::post('/store', 'store');
     Route::delete('/destroy/{id}', 'destroy');
