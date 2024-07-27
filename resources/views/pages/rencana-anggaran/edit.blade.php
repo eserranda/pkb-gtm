@@ -33,7 +33,7 @@
                             </label>
                             <input type="hidden" class="form-control" id="edit_id" name="id">
                             <input type="text" class="form-control" id="edit_sumber_anggaran"
-                                name="edit_sumber_anggaran">
+                                name="edit_sumber_anggaran" placeholder="Sumber Anggaran">
                             <div class="invalid-feedback"></div>
                         </div>
 
@@ -43,7 +43,7 @@
                         <div class="form-group col-md-6">
                             <label class="col-form-label">Nominal</label>
                             <input type="number" class="form-control" id="edit_nominal_anggaran"
-                                name="edit_nominal_anggaran">
+                                name="edit_nominal_anggaran" placeholder="Nominal">
                             <div class="invalid-feedback"></div>
                         </div>
                     </div>

@@ -73,14 +73,14 @@
                         <div class="form-group col-md-6">
                             <label class="col-form-label">Biaya</label>
                             <input type="text" class="form-control" id="edit_biaya" name="edit_biaya"
-                                placeholder="Sumber Anggaran">
+                                placeholder="Biaya">
                             <div class="invalid-feedback"></div>
                         </div>
 
                         <div class="form-group col-md-6">
                             <label class="col-form-label">Waktu</label>
                             <input type="text" class="form-control" id="edit_waktu" name="edit_waktu"
-                                placeholder="Penanggung Jawab">
+                                placeholder="Waktu">
                             <div class="invalid-feedback"></div>
                         </div>
                     </div>
@@ -88,7 +88,7 @@
                         <div class="form-group col-md-6">
                             <label class="col-form-label">Tempat</label>
                             <input type="text" class="form-control" id="edit_tempat" name="edit_tempat"
-                                placeholder="Sumber Anggaran">
+                                placeholder="Tempat">
                             <div class="invalid-feedback"></div>
                         </div>
 
