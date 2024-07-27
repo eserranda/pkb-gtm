@@ -26,7 +26,7 @@
                             <input type="text" class="form-control" id="bidang" name="bidang"
                                 placeholder="Bidang"> --}}
                             <label class="col-form-label">Bidang : </label>
-                            <select class="form-control" name="edit_bidang" id="edit_bidang">
+                            <select class="form-control custom-select" name="edit_bidang" id="edit_bidang">
                                 <option value="" selected disabled>Pilih bidang</option>
                                 <option value="Bidang I">Bidang I</option>
                                 <option value="Bidang II">Bidang II</option>
@@ -41,8 +41,10 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label class="col-form-label">Tujuan</label>
-                            <input type="text" class="form-control" id="edit_tujuan" name="edit_tujuan"
-                                placeholder="Tujuan">
+                            {{-- <input type="text" class="form-control" id="edit_tujuan" name="edit_tujuan"
+                                placeholder="Tujuan"> --}}
+                            <textarea class="form-control" name="edit_tujuan" id="edit_tujuan" rows="3" placeholder="Tujuan"></textarea>
+
                             <div class="invalid-feedback"></div>
                         </div>
 
@@ -72,7 +74,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label class="col-form-label">Biaya</label>
-                            <input type="text" class="form-control" id="edit_biaya" name="edit_biaya"
+                            <input type="number" class="form-control" id="edit_biaya" name="edit_biaya"
                                 placeholder="Biaya">
                             <div class="invalid-feedback"></div>
                         </div>

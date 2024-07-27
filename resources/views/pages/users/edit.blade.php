@@ -59,14 +59,13 @@
                             </div>
                         </div>
 
-
+                    </div>
+                    <div class="form-row">
                         <div class="form-group col-md-6">
                             <label class="form-label" for="role">Role</label>
-                            <select class="form-control" name="edit_roles[]" id="edit_roles" multiple>
-                                @foreach (App\Models\Role::all() as $role)
-                                    <option value="{{ $role->name }}">{{ $role->name }}</option>
-                                @endforeach
-                            </select>
+                            <div id="editRolesContainer">
+
+                            </div>
                             <div class="invalid-feedback">
 
                             </div>
@@ -88,6 +87,46 @@
 
 @push('scripts')
     <script>
+        $('#editModal').on('shown.bs.modal', function() {
+            const id = document.getElementById('edit_id').value;
+            fetch('/roles/getUserRoles/' + id)
+                .then(response => response.json())
+                .then(data => {
+                    const user = data.user;
+                    const roles = data.roles;
+
+                    const rolesContainer = document.getElementById('editRolesContainer');
+                    rolesContainer.innerHTML = ''; // Clear any existing content
+
+                    roles.forEach(role => {
+                        const div = document.createElement('div');
+                        div.className = 'custom-control custom-checkbox custom-control-inline';
+
+                        const checkbox = document.createElement('input');
+                        checkbox.type = 'checkbox';
+                        checkbox.className = 'custom-control-input';
+                        checkbox.id = `edit_roles_${role.id}`;
+                        checkbox.name = 'edit_roles[]';
+                        checkbox.value = role.name;
+
+                        // Check if the role is already assigned to the user
+                        if (user.roles.some(userRole => userRole.id === role.id)) {
+                            checkbox.checked = true;
+                        }
+
+                        const label = document.createElement('label');
+                        label.className = 'custom-control-label';
+                        label.htmlFor = `edit_roles_${role.id}`;
+                        label.appendChild(document.createTextNode(role.name));
+
+                        div.appendChild(checkbox);
+                        div.appendChild(label);
+                        rolesContainer.appendChild(div);
+                    });
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        });
+
         function closeModalEdit() {
             const invalidInputs = document.querySelectorAll('.is-invalid');
             invalidInputs.forEach(invalidInput => {

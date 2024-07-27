@@ -8,7 +8,7 @@
                     <a href="index.html"><i class="fe-grid"></i>Dashboard</a>
                 </li>
 
-                <li class="has-submenu">
+                {{-- <li class="has-submenu">
                     <a href="#"><i class="fe-airplay"></i>Administrasi
                     </a>
                     <ul class="submenu">
@@ -16,14 +16,26 @@
                         <li><a href="/pengurus">Daftar Pengurus</a></li>
                         <li><a href="/surat-masuk">Agenda Surat Masuk</a></li>
                         <li><a href="/surat-keluar">Agenda Surat Keluar</a></li>
-                        {{-- <li><a href="ui-checkbox-radio.html">Kas Dan Perbendaharaan</a></li> --}}
                         <li><a href="/tamu">Data Tamu</a></li>
+                    </ul>
+                </li> --}}
+
+                <li class="has-submenu">
+                    <a href="#">
+                        <i class="fe-airplay"></i>
+                        Data Administrasi
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="/klasis">Data Klasis</a></li>
+                        <li><a href="/jemaat">Data Jemaat</a></li>
                     </ul>
                 </li>
 
                 <li class="has-submenu">
                     <a href="program"><i class="fe-briefcase"></i>Program Kerja</a>
                 </li>
+
+
 
                 <li class="has-submenu">
                     <a href="#">
@@ -45,7 +57,7 @@
                 <li class="has-submenu">
                     <a href="#"> <i class="fe-settings"></i>Pengaturan</a>
                     <ul class="submenu">
-                        <li><a href="roles">Role User Login</a></li>
+                        <li><a href="roles">Role User Akses</a></li>
                         <li><a href="email-read.html">Read Email</a></li>
                         <li><a href="email-compose.html">Compose Email</a></li>
                     </ul>

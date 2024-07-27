@@ -57,8 +57,8 @@
                             <th>Nama</th>
                             <th>Username</th>
                             <th>Email</th>
-                            <th>Role</th>
-                            <th>A
+                            <th>Role/User Akses</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -105,7 +105,7 @@
                     document.getElementById('edit_name').value = data.name;
                     document.getElementById('edit_username').value = data.username;
                     document.getElementById('edit_email').value = data.email;
-                    document.getElementById('edit_roles').value = data.roles;
+                    // document.getElementById('edit_roles').value = data.roles;
                 })
                 .catch(error => console.error(error));
             // show modal edit

@@ -18,7 +18,7 @@
             <div class="card-box table-responsive">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <div class="d-flex align-items-center ">
-                        <select class="form-control col-md-12" id="filterData">
+                        <select class="form-control custom-select col-md-12" id="filterData">
                             <option value="" selected disabled>Filter Anggaran</option>
                             <option value="Penerimaan">Penerimaan</option>
                             <option value="Belanja">Belanja</option>
@@ -223,8 +223,8 @@
             });
 
             $('#filterData').on('change', function() {
-                const selectedBidang = $(this).val();
-                datatable.ajax.url('{{ route('rencana-anggaran.index') }}filter=' + selectedBidang)
+                const selectedFilter = $(this).val();
+                datatable.ajax.url('{{ route('klasis.index') }}?filter=' + selectedFilter)
                     .load();
             });
 

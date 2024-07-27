@@ -5,6 +5,8 @@ use App\Models\DaftarKegiatan;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\JemaatController;
+use App\Http\Controllers\KlasisController;
 use App\Http\Controllers\AnggotaController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\PengurusController;
@@ -45,6 +47,27 @@ Route::prefix('roles')->controller(RoleController::class)->group(function () {
     Route::get('/findById/{id}', 'findById');
     Route::post('/update', 'update');
     Route::delete('/destroy/{id}', 'destroy');
+    Route::get('/getAllRoles', 'getAllRoles');
+    Route::get('/getUserRoles/{id}', 'getUserRoles');
+});
+
+Route::prefix('jemaat')->controller(JemaatController::class)->group(function () {
+    Route::get('/', 'index')->name('jemaat.index')->middleware('auth');
+    Route::get('/create', 'create');
+    Route::get('/findById/{id}', 'findById');
+    Route::post('/store', 'store');
+    Route::post('/update', 'update');
+    Route::delete('/destroy/{id}', 'destroy');
+});
+
+Route::prefix('klasis')->controller(KlasisController::class)->group(function () {
+    Route::get('/', 'index')->name('klasis.index')->middleware('auth');
+    Route::get('/create', 'create');
+    Route::get('/findById/{id}', 'findById');
+    Route::post('/store', 'store');
+    Route::post('/update', 'update');
+    Route::delete('/destroy/{id}', 'destroy');
+    Route::get('/getAllKlasis', 'getAllKlasis');
 });
 
 Route::prefix('rencana-anggaran')->controller(RencanaAnggaranController::class)->group(function () {

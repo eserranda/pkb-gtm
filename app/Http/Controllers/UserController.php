@@ -46,7 +46,7 @@ class UserController extends Controller
         }
 
 
-        return redirect()->back()->withErrors(['login' => 'Username or Password is incorrect'])->withInput();
+        return redirect()->back()->withErrors(['login' => 'Username atau Password salah!'])->withInput();
     }
 
     public function findById($id)
@@ -66,7 +66,7 @@ class UserController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'username' => 'required|string|max:255|unique:users',
+            'username' => ['required', 'string', 'max:255', 'unique:users', 'regex:/^\S*$/u'],
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
             'roles' => 'required|array',
@@ -80,6 +80,7 @@ class UserController extends Controller
             'password.confirmed' => 'Konfirmasi Password Tidak Sesuai',
             'roles.*.exists' => 'Role Tidak Valid',
             'username.unique' => 'Username Sudah Digunakan',
+            'username.regex' => 'Username Tidak Valid',
             'email.unique' => 'Email Sudah Digunakan',
             'email.email' => 'Email Tidak Valid',
             'password.min' => 'Password Minimal 8 Karakter'

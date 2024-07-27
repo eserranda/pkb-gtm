@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Role;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -15,6 +16,19 @@ class RoleController extends Controller
     {
         $role = Role::latest('created_at')->get();
         return view('pages.roles.index', compact('role'));
+    }
+
+    public function getUserRoles($id)
+    {
+        $user = User::with('roles')->findOrFail($id);
+        $roles = Role::all(['id', 'name']);
+        return response()->json(['user' => $user, 'roles' => $roles]);
+    }
+
+    public function getAllRoles()
+    {
+        $roles = Role::all(['id', 'name']);
+        return response()->json($roles);
     }
 
 

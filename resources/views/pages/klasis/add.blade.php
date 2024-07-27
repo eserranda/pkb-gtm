@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addModalLabel">Tambah Data Rencana Anggaran</h5>
+                <h5 class="modal-title" id="addModalLabel">Tambah Data Klasis</h5>
                 <button type="button" class="close" onclick="closeModalAdd()">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -12,42 +12,48 @@
                 <form id="addForm">
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label class="col-form-label">Bidang : </label>
-                            <select class="form-control custom-select" name="jenis_anggaran" id="jenis_anggaran">
-                                <option value="" selected disabled>Pilih bidang</option>
-                                <option value="Penerimaan Rutin">Penerimaan Rutin</option>
-                                <option value="Belanja Rutin">Belanja Rutin</option>
-                                <option value="Belanja Bidang I">Bidang I</option>
-                                <option value="Belanja Bidang II">Belanja Bidang II</option>
-                                <option value="Belanja Bidang III">Belanja Bidang III</option>
-                                <option value="Belanja Bidang III">Belanja Bidang III</option>
-                                <option value="Biaya Pengadaan">Biaya Pengadaan</option>
-                                <option value="Belanja lain-lain">Belanja lain-lain</option>
+                            <label class="col-form-label">Nama Klasis
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" class="form-control" id="nama_klasis" name="nama_klasis"
+                                placeholder="Nama Klasis">
+                            <div class="invalid-feedback"></div>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label class="col-form-label">Wilayah : </label>
+                            <select class="form-control custom-select" name="wilayah" id="wilayah">
+                                <option value="" selected disabled>Pilih Wilayah</option>
+                                <option value="Wilayah I">Wilayah I</option>
+                                <option value="Wilayah II">Wilayah II</option>
+                                <option value="Wilayah III">Wilayah III</option>
+                                <option value="Wilayah IV">Wilayah IV</option>
+                                <option value="Wilayah V">Wilayah V</option>
+                                <option value="Wilayah VI">Wilayah VI</option>
+                                <option value="Wilayah VII">Wilayah VII</option>
+                                <option value="Wilayah VIII">Wilayah VIII</option>
+                                <option value="Wilayah IX">Wilayah IX</option>
+                                <option value="Wilayah X">Wilayah X</option>
+                                <option value="Wilayah XI">Wilayah XI</option>
+                                <option value="Wilayah XII">Wilayah XII</option>
                             </select>
                             <div class="invalid-feedback"></div>
                         </div>
 
-                        <div class="form-group col-md-6">
-                            <label class="col-form-label">Sumber Anggaran
-                                <span class="text-danger">*</span>
-                            </label>
-                            <input type="text" class="form-control" id="sumber_anggaran" name="sumber_anggaran"
-                                placeholder="Sumber Anggaran">
-                            <div class="invalid-feedback"></div>
-                        </div>
-
                     </div>
 
-                    <div class="form-row">
+                    {{-- <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label class="col-form-label">Nominal</label>
-                            <input type="number" class="form-control" id="nominal_anggaran" name="nominal_anggaran"
-                                placeholder="Nominal Anggaran">
+                            <label class="col-form-label">Alamat</label>
+                            <textarea class="form-control" name="alamat" id="alamat" rows="3" placeholder="Alamat"></textarea>
                             <div class="invalid-feedback"></div>
                         </div>
+                    </div> --}}
+                    <div class="float-end">
+                        <button type="button" class="btn btn-light waves-effect mr-2"
+                            onclick="closeModalAdd()">Batal</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
                     </div>
-
-                    <button type="submit" class="btn btn-primary">Save</button>
                 </form>
             </div>
         </div>
@@ -81,7 +87,7 @@
             const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
 
             try {
-                const response = await fetch('/rencana-anggaran/store', {
+                const response = await fetch('/klasis/store', {
                     method: 'POST',
                     headers: {
                         'Accept': 'application/json',
@@ -128,8 +134,6 @@
                         }
                     });
 
-                    const form = document.getElementById('addForm');
-                    form.reset();
                     $('#datatable').DataTable().ajax.reload();
                     $('#addModal').modal('hide');
                 }

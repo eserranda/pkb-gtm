@@ -7,10 +7,17 @@
     <link href="{{ asset('assets') }}/libs/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets') }}/libs/datatables/buttons.bootstrap4.css" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets') }}/libs/datatables/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
+
+    <!-- Select2 -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.rtl.min.css" />
 @endpush
 
 @section('page_title')
-    Program
+    Data Jemaat
 @endsection
 @section('content')
     <div class="row">
@@ -18,15 +25,22 @@
             <div class="card-box table-responsive">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <div class="d-flex align-items-center ">
-                        <select class="form-control custom-select col-md-10" id="filterBidang">
-                            {{-- <h5 class="col-md-2 mx-0">Filter : </h5> --}}
-                            <option value="" selected disabled>Pilih bidang</option>
-                            <option value="Bidang I">Bidang I</option>
-                            <option value="Bidang II">Bidang II</option>
-                            <option value="Bidang III">Bidang III</option>
-                            <option value="Bidang Umum Dan Kesekretariatan">Bidang Umum Dan Kesekretariatan</option>
+                        <select class="form-control custom-select col-md-10" id="filterData">
+                            <option value="" selected disabled>Pilih Wilayah</option>
+                            <option value="Wilayah I">Wilayah I</option>
+                            <option value="Wilayah II">Wilayah II</option>
+                            <option value="Wilayah III">Wilayah III</option>
+                            <option value="Wilayah IV">Wilayah IV</option>
+                            <option value="Wilayah V">Wilayah V</option>
+                            <option value="Wilayah VI">Wilayah VI</option>
+                            <option value="Wilayah VII">Wilayah VII</option>
+                            <option value="Wilayah VIII">Wilayah VIII</option>
+                            <option value="Wilayah IX">Wilayah IX</option>
+                            <option value="Wilayah X">Wilayah X</option>
+                            <option value="Wilayah XI">Wilayah XI</option>
+                            <option value="Wilayah XII">Wilayah XII</option>
                         </select>
-                        <button type="button" class="btn btn-light waves-effect col-2 mx-1" id="reload">
+                        <button type="button" class="btn btn-light waves-effect col-3 mx-1" id="reload">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20"
                                 viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none"
                                 stroke-linecap="round" stroke-linejoin="round">`
@@ -46,20 +60,15 @@
                     </div>
                 </div>
 
-                <table id="datatable" class="table table-striped table-bordered dt-responsive"
+                <table id="datatable" class="table table-striped table-bordered dt-responsive nowrap"
                     style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Nama Program</th>
-                            <th>Bidang</th>
-                            <th>Tujuan</th>
-                            <th>Bentuk</th>
-                            <th>Sumber Anggaran</th>
-                            <th>Penanggung Jawab</th>
-                            <th>Biaya</th>
-                            <th>Waktu</th>
-                            <th>Tempat</th>
+                            <th>Klasis</th>
+                            <th>Nama Jemaat</th>
+                            <th>Pelayan</th>
+                            <th>Alamat</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -71,8 +80,8 @@
         </div>
     </div> <!-- end row -->
 
-    @include('pages.program.add')
-    @include('pages.program.edit')
+    @include('pages.jemaat.add')
+    @include('pages.jemaat.edit')
 @endsection
 
 @push('scripts')
@@ -95,26 +104,25 @@
     <!-- Sweet Alert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <!-- Select2 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+
     <script>
         function edit(id) {
-            fetch('/program/findById/' + id)
+            fetch('/jemaat/findById/' + id)
                 .then(response => response.json())
                 .then(data => {
                     document.getElementById('edit_id').value = data.id;
-                    document.getElementById('edit_nama_program').value = data.nama_program;
-                    document.getElementById('edit_bidang').value = data.bidang;
-                    document.getElementById('edit_sumber_anggaran').value = data.sumber_anggaran;
-                    document.getElementById('edit_penanggung_jawab').value = data.penanggung_jawab;
-                    document.getElementById('edit_biaya').value = data.biaya;
-                    document.getElementById('edit_tujuan').value = data.tujuan;
-                    document.getElementById('edit_bentuk').value = data.bentuk;
-                    document.getElementById('edit_waktu').value = data.waktu;
-                    document.getElementById('edit_tempat').value = data.tempat;
+                    document.getElementById('edit_nama_klasis').value = data.nama_klasis;
+                    document.getElementById('edit_wilayah').value = data.wilayah;
+                    document.getElementById('edit_alamat').value = data.alamat;
                 })
                 .catch(error => console.error(error));
             // show modal edit
             $('#editModal').modal('show');
         }
+
 
         async function hapus(id) {
             Swal.fire({
@@ -130,7 +138,7 @@
                 if (result.isConfirmed) {
                     var csrfToken = $('meta[name="csrf-token"]').attr('content');
                     $.ajax({
-                        url: '/program/destroy/' + id,
+                        url: '/jemaat/destroy/' + id,
                         type: 'DELETE',
                         data: {
                             _token: csrfToken
@@ -180,7 +188,7 @@
                 buttons: [{
                         extend: 'excel',
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+                            columns: [0, 1, 2, 3]
                         },
                         init: function(api, node, config) {
                             $(node).hide();
@@ -189,14 +197,14 @@
                     {
                         extend: 'print',
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+                            columns: [0, 1, 2, 3]
                         },
                         init: function(api, node, config) {
                             $(node).hide();
                         }
                     },
                 ],
-                ajax: "{{ route('program.index') }}",
+                ajax: "{{ route('jemaat.index') }}",
                 columns: [{
                         data: 'DT_RowIndex',
                         name: '#',
@@ -204,48 +212,23 @@
 
                     },
                     {
-                        data: 'nama_program',
-                        name: 'nama_program',
+                        data: 'id_klasis',
+                        name: 'id_klasis',
                         orderable: false,
                     },
                     {
-                        data: 'bidang',
-                        name: 'bidang',
+                        data: 'nama_jemaat',
+                        name: 'nama_jemaat',
                         orderable: false,
                     },
                     {
-                        data: 'tujuan',
-                        name: 'tujuan',
+                        data: 'pelayan',
+                        name: 'pelayan',
                         orderable: false,
                     },
                     {
-                        data: 'bentuk',
-                        name: 'bentuk',
-                        orderable: false,
-                    },
-                    {
-                        data: 'sumber_anggaran',
-                        name: 'sumber_anggaran',
-                        orderable: false,
-                    },
-                    {
-                        data: 'penanggung_jawab',
-                        name: 'penanggung_jawab',
-                        orderable: false,
-                    },
-                    {
-                        data: 'biaya',
-                        name: 'biaya',
-                        orderable: false,
-                    },
-                    {
-                        data: 'waktu',
-                        name: 'waktu',
-                        orderable: false,
-                    },
-                    {
-                        data: 'tempat',
-                        name: 'tempat',
+                        data: 'alamat',
+                        name: 'alamat',
                         orderable: false,
                     },
                     {
@@ -257,15 +240,15 @@
                 ],
             });
 
-            $('#filterBidang').on('change', function() {
-                const selectedBidang = $(this).val();
-                datatable.ajax.url('{{ route('program.index') }}?bidang=' + selectedBidang)
+            $('#filterData').on('change', function() {
+                const selectedFilter = $(this).val();
+                datatable.ajax.url('{{ route('klasis.index') }}?filter=' + selectedFilter)
                     .load();
             });
 
             $('#reload').on('click', function() {
-                $('#filterBidang').val('');
-                datatable.ajax.url('{{ route('program.index') }}').load();
+                $('#filterData').val('');
+                datatable.ajax.url('{{ route('klasis.index') }}').load();
             });
         });
 

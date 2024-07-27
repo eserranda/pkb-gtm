@@ -9,14 +9,14 @@
             </div>
             <div class="modal-body">
                 <form id="addForm">
-                    <div class="form-group col-md-8">
+                    <div class="form-group ">
                         <label class="form-label" for="name">Role</label>
                         <input type="text" class="form-control" id="name" name="name" placeholder="role">
                         <div class="invalid-feedback">
 
                         </div>
                     </div>
-                    <div class="form-group col-md-8">
+                    <div class="form-group ">
                         <label class="form-label" for="description">Deskripsi</label>
                         <textarea class="form-control" placeholder="deskripsi" rows="3" name="description" id="description"></textarea>
 
@@ -26,7 +26,7 @@
                     </div>
 
                     <div class="float-end">
-                        <button type="button" class="btn btn-light waves-effect mx-2" onclick="closeModalAdd()">
+                        <button type="button" class="btn btn-light waves-effect mr-2" onclick="closeModalAdd()">
                             Batal
                         </button>
                         <button class="btn btn-primary  " type="submit">Simpan</button>

@@ -13,7 +13,8 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label class="col-form-label">Bidang : </label>
-                            <select class="form-control" name="edit_jenis_anggaran" id="edit_jenis_anggaran">
+                            <select class="form-control custom-select" name="edit_jenis_anggaran"
+                                id="edit_jenis_anggaran">
                                 <option value="" selected disabled>Pilih bidang</option>
                                 <option value="Penerimaan Rutin">Penerimaan Rutin</option>
                                 <option value="Belanja Rutin">Belanja Rutin</option>

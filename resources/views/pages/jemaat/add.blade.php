@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addModalLabel">Tambah Data Rencana Anggaran</h5>
+                <h5 class="modal-title" id="addModalLabel">Tambah Data Jemaat</h5>
                 <button type="button" class="close" onclick="closeModalAdd()">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -12,42 +12,43 @@
                 <form id="addForm">
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label class="col-form-label">Bidang : </label>
-                            <select class="form-control custom-select" name="jenis_anggaran" id="jenis_anggaran">
-                                <option value="" selected disabled>Pilih bidang</option>
-                                <option value="Penerimaan Rutin">Penerimaan Rutin</option>
-                                <option value="Belanja Rutin">Belanja Rutin</option>
-                                <option value="Belanja Bidang I">Bidang I</option>
-                                <option value="Belanja Bidang II">Belanja Bidang II</option>
-                                <option value="Belanja Bidang III">Belanja Bidang III</option>
-                                <option value="Belanja Bidang III">Belanja Bidang III</option>
-                                <option value="Biaya Pengadaan">Biaya Pengadaan</option>
-                                <option value="Belanja lain-lain">Belanja lain-lain</option>
+                            <label class="col-form-label">Pilih Klasis</label>
+                            <select name="id_klasis" id="id_klasis">
                             </select>
                             <div class="invalid-feedback"></div>
                         </div>
-
                         <div class="form-group col-md-6">
-                            <label class="col-form-label">Sumber Anggaran
+                            <label class="col-form-label">Nama Jemaat
                                 <span class="text-danger">*</span>
                             </label>
-                            <input type="text" class="form-control" id="sumber_anggaran" name="sumber_anggaran"
-                                placeholder="Sumber Anggaran">
+                            <input type="text" class="form-control" id="nama_jemaat" name="nama_jemaat"
+                                placeholder="Nama Jemaat">
                             <div class="invalid-feedback"></div>
                         </div>
-
                     </div>
 
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label class="col-form-label">Nominal</label>
-                            <input type="number" class="form-control" id="nominal_anggaran" name="nominal_anggaran"
-                                placeholder="Nominal Anggaran">
+                            <label class="col-form-label">Nama Pelayan
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" class="form-control" id="pelayan" name="pelayan"
+                                placeholder="Nama Pelayan">
+                            <div class="invalid-feedback">
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label class="col-form-label">Alamat</label>
+                            <textarea class="form-control" name="alamat" id="alamat" rows="3" placeholder="Alamat"></textarea>
                             <div class="invalid-feedback"></div>
                         </div>
                     </div>
-
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <div class="float-end">
+                        <button type="button" class="btn btn-light waves-effect mr-2"
+                            onclick="closeModalAdd()">Batal</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -56,6 +57,25 @@
 
 @push('scripts')
     <script>
+        $(document).ready(function() {
+            $('#id_klasis').select2({
+                theme: "bootstrap-5",
+                placeholder: "Pilih Klasis",
+                // minimumInputLength: 1,
+                ajax: {
+                    url: '/klasis/getAllKlasis',
+                    dataType: 'json',
+                    delay: 250,
+                    processResults: function(data) {
+                        return {
+                            results: data
+                        };
+                    },
+                    cache: true
+                }
+            });
+        });
+
         function closeModalAdd() {
             const invalidInputs = document.querySelectorAll('.is-invalid');
             invalidInputs.forEach(invalidInput => {
@@ -81,7 +101,7 @@
             const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
 
             try {
-                const response = await fetch('/rencana-anggaran/store', {
+                const response = await fetch('/jemaat/store', {
                     method: 'POST',
                     headers: {
                         'Accept': 'application/json',
@@ -128,8 +148,6 @@
                         }
                     });
 
-                    const form = document.getElementById('addForm');
-                    form.reset();
                     $('#datatable').DataTable().ajax.reload();
                     $('#addModal').modal('hide');
                 }
