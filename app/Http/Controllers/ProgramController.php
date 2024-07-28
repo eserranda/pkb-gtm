@@ -26,7 +26,7 @@ class ProgramController extends Controller
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('biaya', function ($row) {
-                    return 'Rp' . number_format($row->nominal_anggaran, 0, ',', '.', '.');
+                    return 'Rp' . number_format($row->nominal_anggaran, 0, ',', ',', '.');
                 })
                 ->addColumn('action', function ($row) {
                     $btn = '<div class="d-flex justify-content-start align-items-center">';
