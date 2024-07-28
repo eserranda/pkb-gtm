@@ -19,7 +19,7 @@ class JemaatController extends Controller
 
             $query = Jemaat::query();
             if ($bidangFilter) {
-                $query->where('klasis', $bidangFilter);
+                $query->where('id_klasis', $bidangFilter);
             }
 
             $data = $query->latest('created_at')->get();

@@ -249,7 +249,6 @@
 
             $('#filterData').on('change', function() {
                 const selectedFilter = $(this).val();
-                alert(selectedFilter);
                 datatable.ajax.url('{{ route('jemaat.index') }}?filter=' + selectedFilter)
                     .load();
             });
