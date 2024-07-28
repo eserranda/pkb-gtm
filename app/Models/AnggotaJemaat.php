@@ -7,5 +7,26 @@ use Illuminate\Database\Eloquent\Model;
 
 class AnggotaJemaat extends Model
 {
+    protected $fillable = [
+        'id_jemaat',
+        'nama_anggota',
+        'gender',
+        'alamat',
+        'status_tempat_tinggal',
+        'no_telp',
+        'mulai_berjemaat',
+        'status_pernikahan',
+        'tempat_lahir',
+        'tgl_lahir',
+        'pendidikan',
+        'pekerjaan',
+        'baptis',
+        'sidi',
+        'nama_ayah',
+        'nama_ibu',
+        'tgl_pernikahan',
+        'keterangan'
+    ];
+
     use HasFactory;
 }

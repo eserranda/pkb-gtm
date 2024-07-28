@@ -58,7 +58,7 @@ class KlasisController extends Controller
 
     public function getIdAndNameAllKlasis()
     {
-        $klases = Klasis::all(['id', 'nama_klasis']);
+        $klases = Klasis::orderBy('nama_klasis', 'asc')->get(['id', 'nama_klasis']);
         return response()->json($klases);
     }
 

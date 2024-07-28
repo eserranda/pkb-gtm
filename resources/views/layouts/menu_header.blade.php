@@ -28,6 +28,7 @@
                     <ul class="submenu">
                         <li><a href="/klasis">Data Klasis</a></li>
                         <li><a href="/jemaat">Data Jemaat</a></li>
+                        <li><a href="/anggota-jemaat">Anggota Jemaat</a></li>
                     </ul>
                 </li>
 

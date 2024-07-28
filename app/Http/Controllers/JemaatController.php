@@ -77,17 +77,33 @@ class JemaatController extends Controller
         if ($save) {
             return response()->json([
                 'success' => true,
-                'messages' => 'Program baru ditambahkan'
-            ], 201);
+                'messages' => 'Data jemaat berhasil ditambahkan'
+            ], 200);
         } else {
             return response()->json([
                 'success' => false,
-                'messages' => 'Program gagal ditambahkan'
-            ], 409);
+                'messages' => 'Data jemaat gagal ditambahkan'
+            ], 500);
         }
     }
 
+    public function getIdAndNameAllKlasis()
+    {
+        $jemaats = Jemaat::with('klasis:id,nama_klasis') // Eager load klasis
+            ->select('id_klasis')
+            ->distinct()
+            ->get();
 
+
+        $result = $jemaats->map(function ($jemaat) {
+            return [
+                'id_klasis' => $jemaat->id_klasis,
+                'nama_klasis' => $jemaat->klasis->nama_klasis,
+            ];
+        });
+
+        return response()->json($result);
+    }
 
     /**
      * Display the specified resource.

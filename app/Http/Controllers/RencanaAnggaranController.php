@@ -17,7 +17,7 @@ class RencanaAnggaranController extends Controller
 
             $query = RencanaAnggaran::query();
             if ($filterData) {
-                $query->where('jenis_anggaran', $filterData);
+                $query->where('jenis_anggaran', 'LIKE', '%' . $filterData . '%');
             }
 
             $data = $query->latest('created_at')->get();

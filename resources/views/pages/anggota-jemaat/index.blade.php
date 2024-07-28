@@ -14,10 +14,13 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.rtl.min.css" />
+
+    <!-- Plugins css -->
+    <link href="{{ asset('assets') }}/libs/dropzone/dropzone.min.css" rel="stylesheet" type="text/css" />
 @endpush
 
 @section('page_title')
-    Data Jemaat
+    Data Anggota Jemaat
 @endsection
 @section('content')
     <div class="row">
@@ -25,11 +28,11 @@
             <div class="card-box table-responsive">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <div class="d-flex align-items-center ">
-                        <select class="form-control custom-select col-md-10" id="filterData">
+                        {{-- <select class="form-control custom-select col-md-10" id="filterData">
                             <option value="" selected disabled>Pilih Klasis</option>
 
-                        </select>
-                        <button type="button" class="btn btn-light waves-effect col-3 mx-1" id="reload">
+                        </select> --}}
+                        {{-- <button type="button" class="btn btn-light waves-effect col-3 mx-1" id="reload">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20"
                                 viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none"
                                 stroke-linecap="round" stroke-linejoin="round">`
@@ -37,10 +40,12 @@
                                 <path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" />
                                 <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4" />
                             </svg>
-                        </button>
+                        </button> --}}
                     </div>
 
                     <div class="d-flex gap-2">
+                        <button type="button" class="btn btn-warning  mx-1" data-toggle="modal"
+                            data-target="#importModal">Import</button>
                         <button type="button" class="btn btn-info waves-effect" id="btnPrint">Print</button>
                         <button type="button" class="btn btn-success waves-effect mx-1" id="btnExcel">Excel</button>
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal">
@@ -54,10 +59,24 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Klasis</th>
-                            <th>Nama Jemaat</th>
-                            <th>Pelayan</th>
+                            <th>ID Jemaat</th>
+                            <th>Nama Anggota</th>
+                            <th>Gender</th>
                             <th>Alamat</th>
+                            <th>Status Tempat Tinggal</th>
+                            <th>No Telp</th>
+                            <th>Mulai Berjemaat</th>
+                            <th>Status Pernikahan</th>
+                            <th>Tempat Lahir</th>
+                            <th>Tgl Lahir</th>
+                            <th>Pendidikan</th>
+                            <th>Pekerjaan</th>
+                            <th>Baptis</th>
+                            <th>Sidi</th>
+                            <th>Nama Ayah</th>
+                            <th>Nama Ibu</th>
+                            <th>Tgl Pernikahan</th>
+                            <th>Keterangan</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -69,8 +88,9 @@
         </div>
     </div> <!-- end row -->
 
-    @include('pages.jemaat.add')
-    @include('pages.jemaat.edit')
+    @include('pages.anggota-jemaat.add')
+    @include('pages.anggota-jemaat.edit')
+    @include('pages.anggota-jemaat.import')
 @endsection
 
 @push('scripts')
@@ -95,6 +115,9 @@
 
     <!-- Select2 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+    <!-- Plugins js -->
+    <script src="{{ asset('assets') }}/libs/dropzone/dropzone.min.js"></script>
 
 
     <script>
@@ -170,6 +193,23 @@
                 serverSide: true,
                 autoWidth: true,
                 responsive: true,
+                // columnDefs: [{
+                //         width: '25%',
+                //         targets: 0
+                //     },
+                //     {
+                //         width: '25%',
+                //         targets: 1
+                //     },
+                //     {
+                //         width: '100%',
+                //         targets: 2
+                //     },
+                //     {
+                //         targets: '_all',
+                //         className: 'dt-center'
+                //     }
+                // ],
 
                 dom: "<'row'<'col-lg-3'l> <'col-lg-4'B> <'col-lg-5'f>>" +
                     "<'row'<'col-sm-12 py-lg-2'tr>>" +
@@ -177,7 +217,7 @@
                 buttons: [{
                         extend: 'excel',
                         exportOptions: {
-                            columns: [0, 1, 2, 3]
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
                         },
                         init: function(api, node, config) {
                             $(node).hide();
@@ -186,46 +226,99 @@
                     {
                         extend: 'print',
                         exportOptions: {
-                            columns: [0, 1, 2, 3]
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
                         },
                         init: function(api, node, config) {
                             $(node).hide();
                         }
                     },
                 ],
-                ajax: "{{ route('jemaat.index') }}",
+                ajax: "{{ route('anggota-jemaat.index') }}",
                 columns: [{
                         data: 'DT_RowIndex',
                         name: '#',
                         orderable: false,
 
                     },
+
                     {
-                        data: 'id_klasis',
-                        name: 'id_klasis',
-                        orderable: false,
+                        data: 'id_jemaat',
+                        name: 'id_jemaat'
                     },
                     {
-                        data: 'nama_jemaat',
-                        name: 'nama_jemaat',
-                        orderable: false,
+                        data: 'nama_anggota',
+                        name: 'nama_anggota'
                     },
                     {
-                        data: 'pelayan',
-                        name: 'pelayan',
-                        orderable: false,
+                        data: 'gender',
+                        name: 'gender'
                     },
                     {
                         data: 'alamat',
-                        name: 'alamat',
-                        orderable: false,
+                        name: 'alamat'
+                    },
+                    {
+                        data: 'status_tempat_tinggal',
+                        name: 'status_tempat_tinggal'
+                    },
+                    {
+                        data: 'no_telp',
+                        name: 'no_telp'
+                    },
+                    {
+                        data: 'mulai_berjemaat',
+                        name: 'mulai_berjemaat'
+                    },
+                    {
+                        data: 'status_pernikahan',
+                        name: 'status_pernikahan'
+                    },
+                    {
+                        data: 'tempat_lahir',
+                        name: 'tempat_lahir'
+                    },
+                    {
+                        data: 'tgl_lahir',
+                        name: 'tgl_lahir'
+                    },
+                    {
+                        data: 'pendidikan',
+                        name: 'pendidikan'
+                    },
+                    {
+                        data: 'pekerjaan',
+                        name: 'pekerjaan'
+                    },
+                    {
+                        data: 'baptis',
+                        name: 'baptis'
+                    },
+                    {
+                        data: 'sidi',
+                        name: 'sidi'
+                    },
+                    {
+                        data: 'nama_ayah',
+                        name: 'nama_ayah'
+                    },
+                    {
+                        data: 'nama_ibu',
+                        name: 'nama_ibu'
+                    },
+                    {
+                        data: 'tgl_pernikahan',
+                        name: 'tgl_pernikahan'
+                    },
+                    {
+                        data: 'keterangan',
+                        name: 'keterangan'
                     },
                     {
                         data: 'action',
                         name: 'action',
                         orderable: false,
                         searchable: false
-                    },
+                    }
                 ],
 
 
@@ -233,19 +326,19 @@
             });
 
             // fetch data klasis yang ada pada tabel jemaat 
-            fetch('/jemaat/getIdAndNameAllKlasis')
-                // fetch('/klasis/getIdAndNameAllKlasis')
-                .then(response => response.json())
-                .then(data => {
-                    const filterData = document.getElementById('filterData');
-                    data.forEach(klasis => {
-                        const option = document.createElement('option');
-                        option.value = klasis.id_klasis;
-                        option.textContent = klasis.nama_klasis;
-                        filterData.appendChild(option);
-                    });
-                })
-                .catch(error => console.error('Error fetching data:', error));
+            // fetch('/jemaat/getIdAndNameAllKlasis')
+            //     // fetch('/klasis/getIdAndNameAllKlasis')
+            //     .then(response => response.json())
+            //     .then(data => {
+            //         const filterData = document.getElementById('filterData');
+            //         data.forEach(klasis => {
+            //             const option = document.createElement('option');
+            //             option.value = klasis.id_klasis;
+            //             option.textContent = klasis.nama_klasis;
+            //             filterData.appendChild(option);
+            //         });
+            //     })
+            //     .catch(error => console.error('Error fetching data:', error));
 
 
             $('#filterData').on('change', function() {

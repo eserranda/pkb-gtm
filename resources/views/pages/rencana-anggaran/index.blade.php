@@ -10,7 +10,7 @@
 @endpush
 
 @section('page_title')
-    Rencana Angagaran
+    Rencana Anggaran
 @endsection
 @section('content')
     <div class="row">
@@ -19,7 +19,7 @@
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <div class="d-flex align-items-center ">
                         <select class="form-control custom-select col-md-12" id="filterData">
-                            <option value="" selected disabled>Filter Anggaran</option>
+                            <option value="" selected disabled>Pilih Jenis Anggaran</option>
                             <option value="Penerimaan">Penerimaan</option>
                             <option value="Belanja">Belanja</option>
                             <option value="Bidang I">Bidang I</option>
@@ -224,7 +224,7 @@
 
             $('#filterData').on('change', function() {
                 const selectedFilter = $(this).val();
-                datatable.ajax.url('{{ route('klasis.index') }}?filter=' + selectedFilter)
+                datatable.ajax.url('{{ route('rencana-anggaran.index') }}?filter=' + selectedFilter)
                     .load();
             });
 

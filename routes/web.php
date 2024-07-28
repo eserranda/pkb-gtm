@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\JemaatController;
 use App\Http\Controllers\KlasisController;
 use App\Http\Controllers\AnggotaController;
+use App\Http\Controllers\AnggotaJemaatController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\PengurusController;
 use App\Http\Controllers\DaftarKegiatanController;
@@ -51,6 +52,17 @@ Route::prefix('roles')->controller(RoleController::class)->group(function () {
     Route::get('/getUserRoles/{id}', 'getUserRoles');
 });
 
+Route::prefix('anggota-jemaat')->controller(AnggotaJemaatController::class)->group(function () {
+    Route::get('/', 'index')->name('anggota-jemaat.index')->middleware('auth');
+    Route::get('/create', 'create');
+    Route::get('/findById/{id}', 'findById');
+    Route::post('/store', 'store');
+    Route::post('/import', 'import');
+    Route::post('/update', 'update');
+    Route::delete('/destroy/{id}', 'destroy');
+    // Route::get('/getIdAndNameAllKlasis', 'getIdAndNameAllKlasis');
+});
+
 Route::prefix('jemaat')->controller(JemaatController::class)->group(function () {
     Route::get('/', 'index')->name('jemaat.index')->middleware('auth');
     Route::get('/create', 'create');
@@ -58,6 +70,7 @@ Route::prefix('jemaat')->controller(JemaatController::class)->group(function () 
     Route::post('/store', 'store');
     Route::post('/update', 'update');
     Route::delete('/destroy/{id}', 'destroy');
+    Route::get('/getIdAndNameAllKlasis', 'getIdAndNameAllKlasis');
 });
 
 Route::prefix('klasis')->controller(KlasisController::class)->group(function () {
