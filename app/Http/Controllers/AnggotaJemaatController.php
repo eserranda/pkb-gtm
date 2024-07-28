@@ -27,9 +27,9 @@ class AnggotaJemaatController extends Controller
             $data = $query->latest('created_at')->get();
             return DataTables::of($data)
                 ->addIndexColumn()
-                ->addColumn('id_klasis', function ($row) {
-                    if ($row->id_klasis) {
-                        return $row->klasis->nama_klasis;
+                ->addColumn('id_jemaat', function ($row) {
+                    if ($row->id_jemaat) {
+                        return $row->jemaat->nama_jemaat;
                     } else {
                         return '-';
                     }

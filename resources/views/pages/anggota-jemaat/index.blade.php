@@ -59,7 +59,7 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>ID Jemaat</th>
+                            <th>Jemaat</th>
                             <th>Nama Anggota</th>
                             <th>Gender</th>
                             <th>Alamat</th>

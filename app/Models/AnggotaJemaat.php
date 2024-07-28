@@ -28,5 +28,10 @@ class AnggotaJemaat extends Model
         'keterangan'
     ];
 
+    public function jemaat()
+    {
+        return $this->belongsTo(Jemaat::class, 'id_jemaat');
+    }
+
     use HasFactory;
 }
