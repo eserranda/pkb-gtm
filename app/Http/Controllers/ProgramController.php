@@ -25,9 +25,13 @@ class ProgramController extends Controller
             // $data = Program::latest('created_at')->get();
             return DataTables::of($data)
                 ->addIndexColumn()
-                ->addColumn('biaya', function ($row) {
-                    return 'Rp' . number_format($row->biaya, 0, ',', '.');
-                })
+                // ->addColumn('biaya', function ($row) {
+                //     if ($row->biaya) {
+                //         return 'Rp' . number_format($row->biaya, 0, ',', '.');
+                //     } else {
+                //         return '-';
+                //     }
+                // })
                 ->addColumn('action', function ($row) {
                     $btn = '<div class="d-flex justify-content-start align-items-center">';
                     $btn .= '<a class="btn btn-outline-secondary btn-sm mx-1" title="Edit" onclick="edit(' . $row->id . ')"> <i class="fas fa-pencil-alt"></i> </a>';
