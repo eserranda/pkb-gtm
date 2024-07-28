@@ -56,6 +56,12 @@ class KlasisController extends Controller
         return response()->json($data);
     }
 
+    public function getIdAndNameAllKlasis()
+    {
+        $klases = Klasis::all(['id', 'nama_klasis']);
+        return response()->json($klases);
+    }
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [

@@ -68,6 +68,7 @@ Route::prefix('klasis')->controller(KlasisController::class)->group(function () 
     Route::post('/update', 'update');
     Route::delete('/destroy/{id}', 'destroy');
     Route::get('/getAllKlasis', 'getAllKlasis');
+    Route::get('/getIdAndNameAllKlasis', 'getIdAndNameAllKlasis');
 });
 
 Route::prefix('rencana-anggaran')->controller(RencanaAnggaranController::class)->group(function () {

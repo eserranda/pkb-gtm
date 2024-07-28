@@ -26,19 +26,8 @@
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <div class="d-flex align-items-center ">
                         <select class="form-control custom-select col-md-10" id="filterData">
-                            <option value="" selected disabled>Pilih Wilayah</option>
-                            <option value="Wilayah I">Wilayah I</option>
-                            <option value="Wilayah II">Wilayah II</option>
-                            <option value="Wilayah III">Wilayah III</option>
-                            <option value="Wilayah IV">Wilayah IV</option>
-                            <option value="Wilayah V">Wilayah V</option>
-                            <option value="Wilayah VI">Wilayah VI</option>
-                            <option value="Wilayah VII">Wilayah VII</option>
-                            <option value="Wilayah VIII">Wilayah VIII</option>
-                            <option value="Wilayah IX">Wilayah IX</option>
-                            <option value="Wilayah X">Wilayah X</option>
-                            <option value="Wilayah XI">Wilayah XI</option>
-                            <option value="Wilayah XII">Wilayah XII</option>
+                            <option value="" selected disabled>Pilih Klasis</option>
+
                         </select>
                         <button type="button" class="btn btn-light waves-effect col-3 mx-1" id="reload">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20"
@@ -238,10 +227,29 @@
                         searchable: false
                     },
                 ],
+
+
+
             });
+
+            // fetch data klasis 
+            fetch('/klasis/getIdAndNameAllKlasis')
+                .then(response => response.json())
+                .then(data => {
+                    const filterData = document.getElementById('filterData');
+                    data.forEach(klasis => {
+                        const option = document.createElement('option');
+                        option.value = klasis.id;
+                        option.textContent = klasis.nama_klasis;
+                        filterData.appendChild(option);
+                    });
+                })
+                .catch(error => console.error('Error fetching data:', error));
+
 
             $('#filterData').on('change', function() {
                 const selectedFilter = $(this).val();
+                alert(selectedFilter);
                 datatable.ajax.url('{{ route('jemaat.index') }}?filter=' + selectedFilter)
                     .load();
             });
@@ -250,6 +258,7 @@
                 $('#filterData').val('');
                 datatable.ajax.url('{{ route('jemaat.index') }}').load();
             });
+
         });
 
         $('#btnExcel').on('click', function() {
