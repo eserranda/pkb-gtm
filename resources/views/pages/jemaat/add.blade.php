@@ -14,8 +14,11 @@
                         <div class="form-group col-md-6">
                             <label class="col-form-label">Pilih Klasis</label>
                             <select name="id_klasis" id="id_klasis">
+                                <option value="" selected disabled>Pilih klasis</option>
+                                <div class="invalid-feedback">
+
+                                </div>
                             </select>
-                            <div class="invalid-feedback"></div>
                         </div>
                         <div class="form-group col-md-6">
                             <label class="col-form-label">Nama Jemaat
@@ -115,7 +118,11 @@
                 if (!data.success) {
                     Object.keys(data.messages).forEach(fieldName => {
                         const inputField = document.getElementById(fieldName);
-                        if (inputField) {
+                        if (inputField && fieldName == 'id_klasis') {
+                            inputField.classList.add('is-invalid');
+                            // inputField.nextElementSibling.textContent = data.messages[
+                            //     fieldName][0];
+                        } else {
                             inputField.classList.add('is-invalid');
                             if (inputField.nextElementSibling) {
                                 inputField.nextElementSibling.textContent = data.messages[
@@ -129,8 +136,10 @@
                     validFields.forEach(validField => {
                         const fieldName = validField.id;
                         if (!data.messages[fieldName]) {
-                            validField.classList.remove('is-invalid');
-                            if (validField.nextElementSibling) {
+                            if (fieldName === 'id_klasis') {
+                                validField.classList.remove('is-invalid');
+                            } else {
+                                validField.classList.remove('is-invalid');
                                 validField.nextElementSibling.textContent = '';
                             }
                         }

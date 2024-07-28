@@ -23,6 +23,9 @@ class RencanaAnggaranController extends Controller
             $data = $query->latest('created_at')->get();
             return DataTables::of($data)
                 ->addIndexColumn()
+                ->addColumn('nominal_anggaran', function ($row) {
+                    return 'Rp' . number_format($row->nominal_anggaran, 0, ',', '.');
+                })
                 ->addColumn('action', function ($row) {
                     $btn = '<a class="btn btn-outline-secondary btn-sm" title="Edit" onclick="edit(' . $row->id . ')"> <i class="fas fa-pencil-alt"></i> </a>';
                     $btn .= '<a class="btn btn-outline-secondary btn-sm  text-danger mx-1" title="Hapus" onclick="hapus(' . $row->id . ')"> <i class="fas fa-trash-alt"></i> </a>';

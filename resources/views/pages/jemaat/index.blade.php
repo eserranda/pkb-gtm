@@ -242,13 +242,13 @@
 
             $('#filterData').on('change', function() {
                 const selectedFilter = $(this).val();
-                datatable.ajax.url('{{ route('klasis.index') }}?filter=' + selectedFilter)
+                datatable.ajax.url('{{ route('jemaat.index') }}?filter=' + selectedFilter)
                     .load();
             });
 
             $('#reload').on('click', function() {
                 $('#filterData').val('');
-                datatable.ajax.url('{{ route('klasis.index') }}').load();
+                datatable.ajax.url('{{ route('jemaat.index') }}').load();
             });
         });
 
