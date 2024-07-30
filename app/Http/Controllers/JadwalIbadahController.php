@@ -2,20 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AnggotaPKB;
+use App\Models\JadwalIbadah;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
 
-class AnggotaPKBController extends Controller
+class JadwalIbadahController extends Controller
 {
-
+    /**
+     * Display a listing of the resource.
+     */
     public function index(Request $request)
     {
         if ($request->ajax()) {
             $filterData = $request->input('filter');
 
-            $query = AnggotaPKB::query();
+            $query = JadwalIbadah::query();
             if ($filterData) {
                 $query->where('kelompok', $filterData);
             }
@@ -23,16 +25,9 @@ class AnggotaPKBController extends Controller
             $data = $query->latest('created_at')->get();
             return DataTables::of($data)
                 ->addIndexColumn()
-                ->addColumn('id_klasis', function ($row) {
-                    if ($row->id_klasis) {
-                        return $row->klasis->nama_klasis;
-                    } else {
-                        return '-';
-                    }
-                })
-                ->addColumn('id_jemaat', function ($row) {
-                    if ($row->id_jemaat) {
-                        return $row->jemaat->nama_jemaat;
+                ->addColumn('id_anggota_pkb', function ($row) {
+                    if ($row->id_anggota_pkb) {
+                        return $row->anggota->nama_anggota;
                     } else {
                         return '-';
                     }
@@ -47,45 +42,24 @@ class AnggotaPKBController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        return view('pages.anggota-pkb.index');
+        return view('pages.jadwal-ibadah.index');
     }
 
-    public function findById($id)
-    {
-        $data = AnggotaPKB::find($id);
-        return response()->json($data);
-    }
-
-    public function findOne($id)
-    {
-        $data = AnggotaPKB::find($id);
-        return response()->json($data);
-    }
-
-    public function getAllAnggota(Request $request)
-    {
-        $search = $request->input('term'); // Dapatkan parameter pencarian dari Select2
-
-        // Ambil data dari database berdasarkan parameter pencarian
-        $klasis = AnggotaPKB::where('nama_anggota', 'LIKE', '%' . $search . '%')
-            ->select('id', 'nama_anggota as text')
-            ->get();
-
-        return response()->json($klasis);
-    }
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'id_klasis' => 'required',
-            'id_jemaat' => 'required',
-            'nama_anggota' => 'required',
+            'id_anggota_pkb' => 'required',
             'kelompok' => 'required',
+            'tanggal' => 'required',
+            'pelayan_firman' => 'required',
+            'mc' => 'required',
+            'persembahan' => 'required',
+            'kolektan' => 'required',
+            'lelang' => 'required',
+            'tempat_ibadah' => 'required',
         ], [
-            'id_klasis.required' => 'Klasis tidak boleh kosong',
-            'id_jemaat.required' => 'Jemaat tidak boleh kosong',
-            'kelompok.required' => 'Kelompok tidak boleh kosong',
-            'nama_anggota.required' => 'Nama anggota tidak boleh kosong',
+            'required' => ':attribute harus diisi',
         ]);
 
         if ($validator->fails()) {
@@ -95,12 +69,7 @@ class AnggotaPKBController extends Controller
             ], 422);
         }
 
-        $save = AnggotaPKB::create([
-            'id_klasis' => $request->id_klasis,
-            'id_jemaat' => $request->id_jemaat,
-            'kelompok' => $request->kelompok,
-            'nama_anggota' => $request->nama_anggota,
-        ]);
+        $save = JadwalIbadah::create($request->all());
 
         if ($save) {
             return response()->json([
@@ -113,19 +82,45 @@ class AnggotaPKBController extends Controller
         }
     }
 
+    public function findById($id)
+    {
+        $data = JadwalIbadah::find($id);
+        return response()->json($data);
+    }
 
-    public function update(Request $request, AnggotaPKB $anggotaPKB)
+    /**
+     * Display the specified resource.
+     */
+    public function show(JadwalIbadah $jadwalIbadah)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(JadwalIbadah $jadwalIbadah)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, JadwalIbadah $jadwalIbadah)
     {
         $validator = Validator::make($request->all(), [
-            'edit_id_klasis' => 'required',
-            'edit_id_jemaat' => 'required',
-            'edit_nama_anggota' => 'required',
+            'edit_id_anggota_pkb' => 'required',
             'edit_kelompok' => 'required',
+            'edit_tanggal' => 'required',
+            'edit_pelayan_firman' => 'required',
+            'edit_mc' => 'required',
+            'edit_persembahan' => 'required',
+            'edit_kolektan' => 'required',
+            'edit_lelang' => 'required',
+            'edit_tempat_ibadah' => 'required',
         ], [
-            'edit_id_klasis.required' => 'Klasis tidak boleh kosong',
-            'edit_id_jemaat.required' => 'Jemaat tidak boleh kosong',
-            'edit_nama_anggota.required' => 'Nama anggota tidak boleh kosong',
-            'edit_kelompok.required' => 'Kelompok tidak boleh kosong',
+            'required' => ':attribute harus diisi',
         ]);
 
         if ($validator->fails()) {
@@ -135,17 +130,22 @@ class AnggotaPKBController extends Controller
             ], 422);
         }
 
-        $update = $anggotaPKB::find($request->id)->update([
-            'id_klasis' => $request->edit_id_klasis,
-            'id_jemaat' => $request->edit_id_jemaat,
-            'kelompok' => $request->edit_kelompok,
-            'nama_anggota' => $request->edit_nama_anggota,
+        $update = $jadwalIbadah::where('id', $request->input('id'))->update([
+            'id_anggota_pkb' => $request->input('edit_id_anggota_pkb'),
+            'kelompok' => $request->input('edit_kelompok'),
+            'tanggal' => $request->input('edit_tanggal'),
+            'pelayan_firman' => $request->input('edit_pelayan_firman'),
+            'mc' => $request->input('edit_mc'),
+            'persembahan' => $request->input('edit_persembahan'),
+            'kolektan' => $request->input('edit_kolektan'),
+            'lelang' => $request->input('edit_lelang'),
+            'tempat_ibadah' => $request->input('edit_tempat_ibadah'),
         ]);
 
         if ($update) {
             return response()->json([
                 'success' => true
-            ], 201);
+            ], 200);
         } else {
             return response()->json([
                 'success' => false
@@ -156,10 +156,10 @@ class AnggotaPKBController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(AnggotaPKB $anggotaPKB, $id)
+    public function destroy(JadwalIbadah $jadwalIbadah, $id)
     {
         try {
-            $deleted = $anggotaPKB::findOrFail($id);
+            $deleted = $jadwalIbadah::findOrFail($id);
             $deleted->delete();
 
             return response()->json(['status' => true, 'message' => 'Data berhasil dihapus'], 200);

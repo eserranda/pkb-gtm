@@ -13,6 +13,7 @@ use App\Http\Controllers\AnggotaPKBController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\PengurusController;
 use App\Http\Controllers\DaftarKegiatanController;
+use App\Http\Controllers\JadwalIbadahController;
 use App\Http\Controllers\RencanaAnggaranController;
 use App\Models\AnggotaPKB;
 
@@ -54,13 +55,22 @@ Route::prefix('roles')->controller(RoleController::class)->group(function () {
     Route::get('/getUserRoles/{id}', 'getUserRoles');
 });
 
-Route::prefix('anggota-pkb')->controller(AnggotaPKBController::class)->group(function () {
-    Route::get('/', 'index')->name('anggota-pkb.index')->middleware('auth');
-    // Route::get('/create', 'create');
+Route::prefix('jadwal-ibadah')->controller(JadwalIbadahController::class)->group(function () {
+    Route::get('/', 'index')->name('jadwal-ibadah.index')->middleware('auth');
     Route::get('/findById/{id}', 'findById');
     Route::post('/store', 'store');
     Route::post('/update', 'update');
     Route::delete('/destroy/{id}', 'destroy');
+});
+
+Route::prefix('anggota-pkb')->controller(AnggotaPKBController::class)->group(function () {
+    Route::get('/', 'index')->name('anggota-pkb.index')->middleware('auth');
+    Route::get('/findById/{id}', 'findById');
+    Route::post('/store', 'store');
+    Route::post('/update', 'update');
+    Route::delete('/destroy/{id}', 'destroy');
+    Route::get('/getAllAnggota', 'getAllAnggota');
+    Route::get('/findOne/{id}', 'findOne');
 });
 
 Route::prefix('anggota-jemaat')->controller(AnggotaJemaatController::class)->group(function () {
@@ -71,7 +81,6 @@ Route::prefix('anggota-jemaat')->controller(AnggotaJemaatController::class)->gro
     Route::post('/import', 'import');
     Route::post('/update', 'update');
     Route::delete('/destroy/{id}', 'destroy');
-    // Route::get('/getIdAndNameAllKlasis', 'getIdAndNameAllKlasis');
 });
 
 Route::prefix('jemaat')->controller(JemaatController::class)->group(function () {

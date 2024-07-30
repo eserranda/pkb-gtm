@@ -41,9 +41,9 @@
 
                 <li class="has-submenu">
                     <a href="#">
-                        <i class="mdi mdi-shield-cross-outline"></i>Pelayanan</a>
+                        <i class="mdi mdi-shield-cross-outline"></i>Jadwal Pelayanan</a>
                     <ul class="submenu">
-                        <li><a href="ui-typography.html">Pelayanan Ibadah</a></li>
+                        <li><a href="jadwal-ibadah">Jadwal Pelayanan Ibadah</a></li>
                         <li><a href="ui-cards.html">Pelayanan Diakonia</a></li>
                     </ul>
                 </li>
