@@ -43,8 +43,8 @@
                             <option value="Kelompok XIV">Kelompok XIV</option>
                             <option value="Kelompok XV">Kelompok XV</option>
                             <option value="Kelompok XVI">Kelompok XVI</option>
-                            <option value="Kelompok XVII">Kelompok VII</option>
-                            <option value="Kelompok XVIII">Kelompok VIII</option>
+                            <option value="Kelompok XVII">Kelompok XVII</option>
+                            <option value="Kelompok XVIII">Kelompok XVIII</option>
                             <option value="Kelompok XIX">Kelompok IX</option>
                             <option value="Kelompok XX">Kelompok XX</option>
                             <option value="Kelompok XXI">Kelompok XXI</option>
