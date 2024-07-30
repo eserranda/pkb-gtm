@@ -76,9 +76,9 @@
                         <tr>
                             <th>No</th>
                             <th>Klasis</th>
-                            <th>Nama anggota-pkb</th>
-                            <th>Pelayan</th>
-                            <th>Alamat</th>
+                            <th>Jemaat</th>
+                            <th>Nama Anggota PKB</th>
+                            <th>Kelompok</th>
                             <th>Action</th>
                         </tr>
                     </thead>
