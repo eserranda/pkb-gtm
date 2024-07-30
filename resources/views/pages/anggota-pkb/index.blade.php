@@ -75,10 +75,10 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Klasis</th>
-                            <th>Jemaat</th>
                             <th>Nama Anggota PKB</th>
                             <th>Kelompok</th>
+                            <th>Klasis</th>
+                            <th>Jemaat</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -263,7 +263,7 @@
                 buttons: [{
                         extend: 'excel',
                         exportOptions: {
-                            columns: [0, 1, 2, 3]
+                            columns: [0, 1, 2, 3, 4]
                         },
                         init: function(api, node, config) {
                             $(node).hide();
@@ -272,7 +272,7 @@
                     {
                         extend: 'print',
                         exportOptions: {
-                            columns: [0, 1, 2, 3]
+                            columns: [0, 1, 2, 3, 4]
                         },
                         init: function(api, node, config) {
                             $(node).hide();
@@ -287,6 +287,17 @@
 
                     },
                     {
+                        data: 'nama_anggota',
+                        name: 'nama_anggota',
+                        orderable: false,
+                    },
+
+                    {
+                        data: 'kelompok',
+                        name: 'kelompok',
+                        orderable: false,
+                    },
+                    {
                         data: 'id_klasis',
                         name: 'id_klasis',
                         orderable: false,
@@ -296,16 +307,7 @@
                         name: 'id_jemaat',
                         orderable: false,
                     },
-                    {
-                        data: 'nama_anggota',
-                        name: 'nama_anggota',
-                        orderable: false,
-                    },
-                    {
-                        data: 'kelompok',
-                        name: 'kelompok',
-                        orderable: false,
-                    },
+
                     {
                         data: 'action',
                         name: 'action',
