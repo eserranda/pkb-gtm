@@ -37,6 +37,11 @@ class KlasisController extends Controller
         return view('pages.klasis.index');
     }
 
+    public function findOne($id)
+    {
+        $data = Klasis::find($id);
+        return response()->json($data);
+    }
 
     public function getAllKlasis(Request $request)
     {

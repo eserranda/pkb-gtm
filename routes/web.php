@@ -9,10 +9,12 @@ use App\Http\Controllers\JemaatController;
 use App\Http\Controllers\KlasisController;
 use App\Http\Controllers\AnggotaController;
 use App\Http\Controllers\AnggotaJemaatController;
+use App\Http\Controllers\AnggotaPKBController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\PengurusController;
 use App\Http\Controllers\DaftarKegiatanController;
 use App\Http\Controllers\RencanaAnggaranController;
+use App\Models\AnggotaPKB;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,6 +54,15 @@ Route::prefix('roles')->controller(RoleController::class)->group(function () {
     Route::get('/getUserRoles/{id}', 'getUserRoles');
 });
 
+Route::prefix('anggota-pkb')->controller(AnggotaPKBController::class)->group(function () {
+    Route::get('/', 'index')->name('anggota-pkb.index')->middleware('auth');
+    // Route::get('/create', 'create');
+    Route::get('/findById/{id}', 'findById');
+    Route::post('/store', 'store');
+    Route::post('/update', 'update');
+    Route::delete('/destroy/{id}', 'destroy');
+});
+
 Route::prefix('anggota-jemaat')->controller(AnggotaJemaatController::class)->group(function () {
     Route::get('/', 'index')->name('anggota-jemaat.index')->middleware('auth');
     Route::get('/create', 'create');
@@ -71,6 +82,8 @@ Route::prefix('jemaat')->controller(JemaatController::class)->group(function () 
     Route::post('/update', 'update');
     Route::delete('/destroy/{id}', 'destroy');
     Route::get('/getIdAndNameAllKlasis', 'getIdAndNameAllKlasis');
+    Route::get('/getAllJemaat', 'getAllJemaat');
+    Route::get('/findOne/{id}', 'findOne');
 });
 
 Route::prefix('klasis')->controller(KlasisController::class)->group(function () {
@@ -82,6 +95,7 @@ Route::prefix('klasis')->controller(KlasisController::class)->group(function () 
     Route::delete('/destroy/{id}', 'destroy');
     Route::get('/getAllKlasis', 'getAllKlasis');
     Route::get('/getIdAndNameAllKlasis', 'getIdAndNameAllKlasis');
+    Route::get('/findOne/{id}', 'findOne');
 });
 
 Route::prefix('rencana-anggaran')->controller(RencanaAnggaranController::class)->group(function () {

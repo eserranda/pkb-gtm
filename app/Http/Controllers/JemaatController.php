@@ -45,6 +45,23 @@ class JemaatController extends Controller
         return view('pages.jemaat.index');
     }
 
+    public function getAllJemaat(Request $request)
+    {
+        $search = $request->input('term'); // Dapatkan parameter pencarian dari Select2
+
+        // Ambil data dari database berdasarkan parameter pencarian
+        $klasis = Jemaat::where('nama_jemaat', 'LIKE', '%' . $search . '%')
+            ->select('id', 'nama_jemaat as text')
+            ->get();
+
+        return response()->json($klasis);
+    }
+
+    public function findOne($id)
+    {
+        $data = Jemaat::find($id);
+        return response()->json($data);
+    }
 
     public function store(Request $request)
     {

@@ -29,6 +29,7 @@
                         <li><a href="/klasis">Data Klasis</a></li>
                         <li><a href="/jemaat">Data Jemaat</a></li>
                         <li><a href="/anggota-jemaat">Anggota Jemaat</a></li>
+                        <li><a href="/anggota-pkb">Anggota PKB</a></li>
                     </ul>
                 </li>
 
