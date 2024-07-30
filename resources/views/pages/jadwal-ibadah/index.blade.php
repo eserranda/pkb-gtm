@@ -244,7 +244,7 @@
                 buttons: [{
                         extend: 'excel',
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4]
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
                         },
                         init: function(api, node, config) {
                             $(node).hide();
@@ -253,7 +253,7 @@
                     {
                         extend: 'print',
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4]
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
                         },
                         init: function(api, node, config) {
                             $(node).hide();
