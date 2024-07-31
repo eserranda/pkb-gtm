@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('jemaats', function (Blueprint $table) {
+        Schema::create('surat_masuk_sinodes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_klasis');
-            $table->foreign('id_klasis')->references('id')->on('klases')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->string('nama_jemaat');
-            $table->string('pelayan');
-            $table->string('alamat');
+            $table->date('tanggal');
+            $table->string('nomor_surat');
+            $table->string('perihal');
+            $table->string('alamat_pengirim');
+            $table->string('tindak_lanjut');
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('jemaats');
+        Schema::dropIfExists('surat_masuk_sinodes');
     }
 };

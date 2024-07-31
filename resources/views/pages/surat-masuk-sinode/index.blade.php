@@ -7,10 +7,17 @@
     <link href="{{ asset('assets') }}/libs/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets') }}/libs/datatables/buttons.bootstrap4.css" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets') }}/libs/datatables/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
+
+    <!-- Select2 -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.rtl.min.css" />
 @endpush
 
 @section('page_title')
-    Data Klasis
+    Data Surat Masuk
 @endsection
 @section('content')
     <div class="row">
@@ -18,21 +25,8 @@
             <div class="card-box table-responsive">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <div class="d-flex align-items-center ">
-                        <select class="form-control custom-select col-md-10" id="filterData">
-                            <option value="" selected disabled>Pilih Wilayah</option>
-                            <option value="Wilayah I">Wilayah I</option>
-                            <option value="Wilayah II">Wilayah II</option>
-                            <option value="Wilayah III">Wilayah III</option>
-                            <option value="Wilayah IV">Wilayah IV</option>
-                            <option value="Wilayah V">Wilayah V</option>
-                            <option value="Wilayah VI">Wilayah VI</option>
-                            <option value="Wilayah VII">Wilayah VII</option>
-                            <option value="Wilayah VIII">Wilayah VIII</option>
-                            <option value="Wilayah IX">Wilayah IX</option>
-                            <option value="Wilayah X">Wilayah X</option>
-                            <option value="Wilayah XI">Wilayah XI</option>
-                            <option value="Wilayah XII">Wilayah XII</option>
-                        </select>
+                        {{--  filter berdasarkan tangal --}}
+                        <input class="form-control" type="date" name="date" id="filterData">
                         <button type="button" class="btn btn-light waves-effect col-3 mx-1" id="reload">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20"
                                 viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none"
@@ -58,8 +52,11 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Klasis</th>
-                            <th>Wilayah</th>
+                            <th>Tanggal</th>
+                            <th>Nomor Surat</th>
+                            <th>Perihal</th>
+                            <th>Alamat Pengirim</th>
+                            <th>Tindak Lanjut</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -71,8 +68,8 @@
         </div>
     </div> <!-- end row -->
 
-    @include('pages.klasis.add')
-    @include('pages.klasis.edit')
+    @include('pages.surat-masuk-sinode.add')
+    @include('pages.surat-masuk-sinode.edit')
 @endsection
 
 @push('scripts')
@@ -94,19 +91,20 @@
 
     <!-- Sweet Alert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    {{-- <script src="{{ asset('assets') }}/libs/sweetalert2/sweetalert2.min.js"></script> --}}
-    {{-- <script src="{{ asset('assets') }}/js/pages/sweetalerts.init.js"></script> --}}
 
-
+    <!-- Select2 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
     <script>
         function edit(id) {
-            fetch('/klasis/findById/' + id)
+            fetch('/surat-masuk-sinode/findById/' + id)
                 .then(response => response.json())
                 .then(data => {
                     document.getElementById('edit_id').value = data.id;
-                    document.getElementById('edit_nama_klasis').value = data.nama_klasis;
-                    document.getElementById('edit_wilayah').value = data.wilayah;
-                    document.getElementById('edit_alamat').value = data.alamat;
+                    document.getElementById('edit_tanggal').value = data.tanggal;
+                    document.getElementById('edit_nomor_surat').value = data.nomor_surat;
+                    document.getElementById('edit_perihal').value = data.perihal;
+                    document.getElementById('edit_alamat_pengirim').value = data.alamat_pengirim;
+                    document.getElementById('edit_tindak_lanjut').value = data.tindak_lanjut;
                 })
                 .catch(error => console.error(error));
             // show modal edit
@@ -128,7 +126,7 @@
                 if (result.isConfirmed) {
                     var csrfToken = $('meta[name="csrf-token"]').attr('content');
                     $.ajax({
-                        url: '/klasis/destroy/' + id,
+                        url: '/surat-masuk-sinode/destroy/' + id,
                         type: 'DELETE',
                         data: {
                             _token: csrfToken
@@ -178,7 +176,7 @@
                 buttons: [{
                         extend: 'excel',
                         exportOptions: {
-                            columns: [0, 1, 2]
+                            columns: [0, 1, 2, 3, 4, 5]
                         },
                         init: function(api, node, config) {
                             $(node).hide();
@@ -187,14 +185,14 @@
                     {
                         extend: 'print',
                         exportOptions: {
-                            columns: [0, 1, 2]
+                            columns: [0, 1, 2, 3, 4, 5]
                         },
                         init: function(api, node, config) {
                             $(node).hide();
                         }
                     },
                 ],
-                ajax: "{{ route('klasis.index') }}",
+                ajax: "{{ route('surat-masuk-sinode.index') }}",
                 columns: [{
                         data: 'DT_RowIndex',
                         name: '#',
@@ -202,20 +200,29 @@
 
                     },
                     {
-                        data: 'nama_klasis',
-                        name: 'nama_klasis',
+                        data: 'tanggal',
+                        name: 'tanggal',
+                    },
+                    {
+                        data: 'nomor_surat',
+                        name: 'nomor_surat',
                         orderable: false,
                     },
                     {
-                        data: 'wilayah',
-                        name: 'wilayah',
+                        data: 'perihal',
+                        name: 'perihal',
                         orderable: false,
                     },
-                    // {
-                    //     data: 'alamat',
-                    //     name: 'alamat',
-                    //     orderable: false,
-                    // },
+                    {
+                        data: 'alamat_pengirim',
+                        name: 'alamat_pengirim',
+                        orderable: false,
+                    },
+                    {
+                        data: 'tindak_lanjut',
+                        name: 'tindak_lanjut',
+                        orderable: false,
+                    },
                     {
                         data: 'action',
                         name: 'action',
@@ -225,16 +232,18 @@
                 ],
             });
 
+
             $('#filterData').on('change', function() {
                 const selectedFilter = $(this).val();
-                datatable.ajax.url('{{ route('klasis.index') }}?filter=' + selectedFilter)
+                datatable.ajax.url('{{ route('surat-masuk-sinode.index') }}?filter=' + selectedFilter)
                     .load();
             });
 
             $('#reload').on('click', function() {
                 $('#filterData').val('');
-                datatable.ajax.url('{{ route('klasis.index') }}').load();
+                datatable.ajax.url('{{ route('surat-masuk-sinode.index') }}').load();
             });
+
         });
 
         $('#btnExcel').on('click', function() {

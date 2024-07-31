@@ -1,37 +1,48 @@
 @extends('layouts.master')
+@section('page_title')
+    Dashboard
+@endsection
 
 @section('content')
     <div class="row">
-        <div class="col-12">
-            <div class="card-box table-responsive">
-                <h4 class="header-title"><b>Default Example</b></h4>
+        <div class="col-md-6 col-xl-3">
+            <div class="card-box tilebox-one">
+                <i class="fe-box float-right"></i>
+                <h5 class="text-muted text-uppercase mb-3 mt-0">Orders</h5>
+                <h3 class="mb-3" data-plugin="counterup">1,587</h3>
+                <span class="badge badge-primary"> +11% </span> <span class="text-muted ml-2 vertical-middle">From previous
+                    period</span>
+            </div>
+        </div>
 
+        <div class="col-md-6 col-xl-3">
+            <div class="card-box tilebox-one">
+                <i class="fe-layers float-right"></i>
+                <h5 class="text-muted text-uppercase mb-3 mt-0">Revenue</h5>
+                <h3 class="mb-3">$<span data-plugin="counterup">46,782</span></h3>
+                <span class="badge badge-primary"> -29% </span> <span class="text-muted ml-2 vertical-middle">From previous
+                    period</span>
+            </div>
+        </div>
 
+        <div class="col-md-6 col-xl-3">
+            <div class="card-box tilebox-one">
+                <i class="fe-tag float-right"></i>
+                <h5 class="text-muted text-uppercase mb-3 mt-0">Average Price</h5>
+                <h3 class="mb-3">$<span data-plugin="counterup">15.9</span></h3>
+                <span class="badge badge-primary"> 0% </span> <span class="text-muted ml-2 vertical-middle">From previous
+                    period</span>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-xl-3">
+            <div class="card-box tilebox-one">
+                <i class="fe-briefcase float-right"></i>
+                <h5 class="text-muted text-uppercase mb-3 mt-0">Product Sold</h5>
+                <h3 class="mb-3" data-plugin="counterup">1,890</h3>
+                <span class="badge badge-primary"> +89% </span> <span class="text-muted ml-2 vertical-middle">Last
+                    year</span>
             </div>
         </div>
     </div>
-    {{-- <div class="row">
-        <div class="col-12">
-            <div class="card-box">
-                <h4 class="header-title">Input Data </h4>
-                
-                <form>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="inputEmail4" class="col-form-label">Email</label>
-                            <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="inputPassword4" class="col-form-label">Password</label>
-                            <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
-                        </div>
-                    </div>
-
-
-                    <button type="submit" class="btn btn-primary">Sign in</button>
-                </form>
-
-            </div>
-        </div>
-    </div> --}}
 @endsection

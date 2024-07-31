@@ -2,27 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Klasis;
 use Illuminate\Http\Request;
-use Yajra\DataTables\Facades\DataTables;
+use App\Models\SuratMasukSinode;
 use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\Facades\DataTables;
 
-class KlasisController extends Controller
+class SuratMasukSinodeController extends Controller
 {
-
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $dataFilter = $request->input('filter');
+            $filterData = $request->input('filter');
 
-            $query = Klasis::query();
-            if ($dataFilter) {
-                $query->where('wilayah', $dataFilter);
+            $query = SuratMasukSinode::query();
+            if ($filterData) {
+                $query->where('tanggal', $filterData);
             }
 
             $data = $query->latest('created_at')->get();
             return DataTables::of($data)
                 ->addIndexColumn()
+                ->editColumn('tanggal', function ($row) {
+                    return date('d-m-Y', strtotime($row->tanggal));
+                })
                 ->addColumn('action', function ($row) {
                     $btn = '<div class="d-flex justify-content-start align-items-center">';
                     $btn .= '<a class="btn btn-outline-secondary btn-sm mx-1" title="Edit" onclick="edit(' . $row->id . ')"> <i class="fas fa-pencil-alt"></i> </a>';
@@ -33,45 +35,18 @@ class KlasisController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-
-        return view('pages.klasis.index');
+        return view('pages.surat-masuk-sinode.index');
     }
 
-    public function findOne($id)
-    {
-        $data = Klasis::find($id);
-        return response()->json($data);
-    }
-
-    public function getAllKlasis(Request $request)
-    {
-        $search = $request->input('term'); // Dapatkan parameter pencarian dari Select2
-
-        // Ambil data dari database berdasarkan parameter pencarian
-        $klasis = Klasis::where('nama_klasis', 'LIKE', '%' . $search . '%')
-            ->select('id', 'nama_klasis as text')
-            ->get();
-
-        return response()->json($klasis);
-    }
-
-    public function findById($id)
-    {
-        $data = Klasis::find($id);
-        return response()->json($data);
-    }
-
-    public function getIdAndNameAllKlasis()
-    {
-        $klases = Klasis::orderBy('nama_klasis', 'asc')->get(['id', 'nama_klasis']);
-        return response()->json($klases);
-    }
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'wilayah' => 'required',
-            'nama_klasis' => 'required',
+            'tanggal' => 'required',
+            'nomor_surat' => 'required',
+            'perihal' => 'required',
+            'alamat_pengirim' => 'required',
+            'tindak_lanjut' => 'required'
         ], [
             'required' => ':attribute harus diisi',
         ]);
@@ -80,16 +55,12 @@ class KlasisController extends Controller
             return response()->json([
                 'success' => false,
                 'messages' => $validator->errors()
-            ], 422);
+            ],  422);
         }
 
+        $save = SuratMasukSinode::create($request->all())->save();
 
-        $klasis = Klasis::create([
-            'wilayah' => $request->wilayah,
-            'nama_klasis' => $request->nama_klasis,
-        ]);
-
-        if ($klasis) {
+        if ($save) {
             return response()->json([
                 'success' => true,
                 'messages' => 'Data klasis berhasil ditambahkan',
@@ -102,12 +73,20 @@ class KlasisController extends Controller
         }
     }
 
+    public function findById($id)
+    {
+        $data = SuratMasukSinode::find($id);
+        return response()->json($data);
+    }
 
-    public function update(Request $request, Klasis $klasis)
+    public function update(Request $request, SuratMasukSinode $suratMasukSinode)
     {
         $validator = Validator::make($request->all(), [
-            'edit_wilayah' => 'required',
-            'edit_nama_klasis' => 'required',
+            'edit_tanggal' => 'required',
+            'edit_nomor_surat' => 'required',
+            'edit_perihal' => 'required',
+            'edit_alamat_pengirim' => 'required',
+            'edit_tindak_lanjut' => 'required'
         ], [
             'required' => ':attribute harus diisi',
         ]);
@@ -116,12 +95,15 @@ class KlasisController extends Controller
             return response()->json([
                 'success' => false,
                 'messages' => $validator->errors()
-            ], 422);
+            ],  422);
         }
 
-        $update = $klasis::where('id', $request->input('id'))->update([
-            'wilayah' => $request->input('edit_wilayah'),
-            'nama_klasis' => $request->input('edit_nama_klasis'),
+        $update = SuratMasukSinode::where('id', $request->input('id'))->update([
+            'tanggal' => $request->input('edit_tanggal'),
+            'nomor_surat' => $request->input('edit_nomor_surat'),
+            'perihal' => $request->input('edit_perihal'),
+            'alamat_pengirim' => $request->input('edit_alamat_pengirim'),
+            'tindak_lanjut' => $request->input('edit_tindak_lanjut'),
         ]);
 
         if ($update) {
@@ -138,12 +120,11 @@ class KlasisController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Klasis $klasis, $id)
+    public function destroy(SuratMasukSinode $suratMasukSinode, $id)
     {
         try {
-            $deleted = $klasis::findOrFail($id);
+            $deleted = $suratMasukSinode::findOrFail($id);
             $deleted->delete();
-
             return response()->json(['status' => true, 'message' => 'Data berhasil dihapus'], 200);
         } catch (\Exception $e) {
             return response()->json(['status' => false, 'message' => 'Gagal menghapus data'], 500);

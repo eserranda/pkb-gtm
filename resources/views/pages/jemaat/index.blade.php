@@ -95,8 +95,6 @@
 
     <!-- Select2 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-
-
     <script>
         function edit(id) {
             fetch('/jemaat/findById/' + id)
@@ -227,9 +225,6 @@
                         searchable: false
                     },
                 ],
-
-
-
             });
 
             // fetch data klasis yang ada pada tabel jemaat 

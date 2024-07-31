@@ -42,7 +42,7 @@ class UserController extends Controller
         $loginType = filter_var($request->login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
         $credentials = [$loginType => $request->login, 'password' => $request->password];
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('users');
+            return redirect()->intended('dashboard');
         }
 
 

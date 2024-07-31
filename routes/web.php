@@ -13,8 +13,10 @@ use App\Http\Controllers\AnggotaPKBController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\PengurusController;
 use App\Http\Controllers\DaftarKegiatanController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\JadwalIbadahController;
 use App\Http\Controllers\RencanaAnggaranController;
+use App\Http\Controllers\SuratMasukSinodeController;
 use App\Models\AnggotaPKB;
 
 /*
@@ -36,6 +38,20 @@ Route::get('logout', [UserController::class, 'logout'])->name('logout');
 Route::get('/', function () {
     return view('pages.dashboard.index');
 })->name('dashboard')->middleware('auth');
+
+Route::prefix('dashboard')->controller(DashboardController::class)->group(function () {
+    Route::get('/', 'index')->name('dashboard.index')->middleware('auth');
+});
+
+Route::prefix('surat-masuk-sinode')->controller(SuratMasukSinodeController::class)->group(function () {
+    Route::get('/', 'index')->name('surat-masuk-sinode.index')->middleware('auth');
+    Route::get('/create', 'create');
+    Route::get('/findById/{id}', 'findById');
+    Route::post('/store', 'store');
+    Route::post('/import', 'import');
+    Route::post('/update', 'update');
+    Route::delete('/destroy/{id}', 'destroy');
+});
 
 Route::prefix('users')->controller(UserController::class)->group(function () {
     Route::get('/', 'index')->name('users.index')->middleware('role:super_admin');

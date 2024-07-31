@@ -5,7 +5,7 @@
             <ul class="navigation-menu">
 
                 <li class="has-submenu">
-                    <a href="index.html"><i class="fe-grid"></i>Dashboard</a>
+                    <a href="/dashboard"><i class="fe-grid"></i>Dashboard</a>
                 </li>
 
                 {{-- <li class="has-submenu">
@@ -30,6 +30,7 @@
                         <li><a href="/jemaat">Data Jemaat</a></li>
                         <li><a href="/anggota-jemaat">Anggota Jemaat</a></li>
                         <li><a href="/anggota-pkb">Anggota PKB</a></li>
+                        <li><a href="/surat-masuk-sinode">Surat Masuk</a></li>
                     </ul>
                 </li>
 
@@ -60,8 +61,8 @@
                     <a href="#"> <i class="fe-settings"></i>Pengaturan</a>
                     <ul class="submenu">
                         <li><a href="roles">Role User Akses</a></li>
-                        <li><a href="email-read.html">Read Email</a></li>
-                        <li><a href="email-compose.html">Compose Email</a></li>
+                        {{-- <li><a href="email-read.html">Read Email</a></li>
+                        <li><a href="email-compose.html">Compose Email</a></li> --}}
                     </ul>
                 </li>
 

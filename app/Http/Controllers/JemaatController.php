@@ -15,11 +15,11 @@ class JemaatController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $bidangFilter = $request->input('filter');
+            $dataFilter = $request->input('filter');
 
             $query = Jemaat::query();
-            if ($bidangFilter) {
-                $query->where('id_klasis', $bidangFilter);
+            if ($dataFilter) {
+                $query->where('id_klasis', $dataFilter);
             }
 
             $data = $query->latest('created_at')->get();
