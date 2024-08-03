@@ -35,9 +35,7 @@ Route::post('login', [UserController::class, 'login'])->middleware('guest');
 
 Route::get('logout', [UserController::class, 'logout'])->name('logout');
 
-Route::get('/', function () {
-    return view('pages.dashboard.index');
-})->name('dashboard')->middleware('auth');
+Route::get('/', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
 
 Route::prefix('dashboard')->controller(DashboardController::class)->group(function () {
     Route::get('/', 'index')->name('dashboard.index')->middleware('auth');

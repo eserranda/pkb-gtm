@@ -18,7 +18,7 @@
             <div class="card-box tilebox-one">
                 <i class="fe-layers float-right"></i>
                 <h5 class="text-muted text-uppercase mb-3 mt-0">Jemaat</h5>
-                <h3 class="mb-3" data-plugin="counterup">> {{ $data_jemaat }}</h3>
+                <h3 class="mb-3" data-plugin="counterup"> {{ $data_jemaat }}</h3>
                 <span class="vertical-middle">Data Jemaat </span>
             </div>
         </div>
@@ -27,7 +27,7 @@
             <div class="card-box tilebox-one">
                 <i class="fe-tag float-right"></i>
                 <h5 class="text-muted text-uppercase mb-3 mt-0">Anggota Jemaat</h5>
-                <h3 class="mb-3" data-plugin="counterup">> {{ $anggota_jemaat }}</h3>
+                <h3 class="mb-3" data-plugin="counterup"> {{ $anggota_jemaat }}</h3>
                 <span class="vertical-middle">Anggota Jemaat Terdaftar </span>
             </div>
         </div>
