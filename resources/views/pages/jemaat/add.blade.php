@@ -120,8 +120,6 @@
                         const inputField = document.getElementById(fieldName);
                         if (inputField && fieldName == 'id_klasis') {
                             inputField.classList.add('is-invalid');
-                            // inputField.nextElementSibling.textContent = data.messages[
-                            //     fieldName][0];
                         } else {
                             inputField.classList.add('is-invalid');
                             if (inputField.nextElementSibling) {
@@ -156,6 +154,9 @@
                             errorNextSibling.textContent = '';
                         }
                     });
+
+                    const form = document.getElementById('addForm');
+                    form.reset();
 
                     $('#datatable').DataTable().ajax.reload();
                     $('#addModal').modal('hide');

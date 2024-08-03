@@ -47,7 +47,7 @@
                     </div>
                 </div>
 
-                <table id="datatable" class="table table-striped table-bordered dt-responsive nowrap"
+                <table id="datatable" class="table table-striped table-bordered dt-responsive"
                     style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead>
                         <tr>

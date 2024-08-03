@@ -2,17 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Jemaat;
+use App\Models\Klasis;
 use App\Models\Dashboard;
+use App\Models\AnggotaPKB;
 use Illuminate\Http\Request;
+use App\Models\AnggotaJemaat;
 
 class DashboardController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
-        return view('pages.dashboard.index');
+
+        $data_klasis = Klasis::count();
+        $data_jemaat = Jemaat::count();
+        $anggota_jemaat = AnggotaJemaat::count();
+        $anggota_pkb = AnggotaPKB::count();
+        return view('pages.dashboard.index', compact('data_klasis', 'data_jemaat', 'anggota_jemaat', 'anggota_pkb'));
     }
 
     /**
