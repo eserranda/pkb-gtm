@@ -6,6 +6,7 @@ use App\Models\Jemaat;
 use App\Models\Klasis;
 use App\Models\Dashboard;
 use App\Models\AnggotaPKB;
+use App\Models\JadwalIbadah;
 use Illuminate\Http\Request;
 use App\Models\AnggotaJemaat;
 
@@ -22,12 +23,11 @@ class DashboardController extends Controller
         return view('pages.dashboard.index', compact('data_klasis', 'data_jemaat', 'anggota_jemaat', 'anggota_pkb'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+
+    public function home()
     {
-        //
+        $data = JadwalIbadah::where('kelompok', 'Kelompok I')->get();
+        return view('pages.home.index', compact('data'));
     }
 
     /**

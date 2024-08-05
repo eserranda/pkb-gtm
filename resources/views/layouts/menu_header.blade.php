@@ -26,45 +26,57 @@
                         Data Administrasi
                     </a>
                     <ul class="submenu">
-                        <li><a href="/klasis">Data Klasis</a></li>
-                        <li><a href="/jemaat">Data Jemaat</a></li>
-                        <li><a href="/anggota-jemaat">Anggota Jemaat</a></li>
-                        <li><a href="/anggota-pkb">Anggota PKB</a></li>
-                        <li><a href="/surat-masuk-sinode">Surat Masuk</a></li>
+                        @if (auth()->user()->hasAnyRole(['super_admin', 'sinode']))
+                            <li><a href="/surat-masuk-sinode">Surat Masuk</a></li>
+                        @endif
+                        @if (auth()->user()->hasAnyRole(['super_admin', 'klasis', 'sinode']))
+                            <li><a href="/klasis">Data Klasis</a></li>
+                            <li><a href="/jemaat">Data Jemaat</a></li>
+                        @endif
+                        @if (auth()->user()->hasAnyRole(['super_admin', 'jemaat', 'sinode']))
+                            <li><a href="/anggota-jemaat">Anggota Jemaat</a></li>
+                            <li><a href="/anggota-pkb">Anggota PKB</a></li>
+                        @endif
                     </ul>
                 </li>
 
-                <li class="has-submenu">
-                    <a href="program"><i class="fe-briefcase"></i>Program Kerja</a>
-                </li>
+
+                @if (auth()->user()->hasAnyRole(['super_admin', 'sinode']))
+                    <li class="has-submenu">
+                        <a href="program"><i class="fe-briefcase"></i>Program Kerja</a>
+                    </li>
+
+                    <li class="has-submenu">
+                        <a href="rencana-anggaran"><i class="mdi mdi-spa-outline"></i>Rencana Anggaran</a>
+                    </li>
+                @endif
 
 
+                @if (auth()->user()->hasAnyRole(['super_admin', 'jemaat']))
+                    <li class="has-submenu">
+                        <a href="#">
+                            <i class="mdi mdi-shield-cross-outline"></i>Jadwal Pelayanan</a>
+                        <ul class="submenu">
+                            <li><a href="jadwal-ibadah">Jadwal Pelayanan Ibadah</a></li>
+                            {{-- <li><a href="ui-cards.html">Pelayanan Diakonia</a></li> --}}
+                        </ul>
+                    </li>
+                @endif
 
-                <li class="has-submenu">
-                    <a href="#">
-                        <i class="mdi mdi-shield-cross-outline"></i>Jadwal Pelayanan</a>
-                    <ul class="submenu">
-                        <li><a href="jadwal-ibadah">Jadwal Pelayanan Ibadah</a></li>
-                        <li><a href="ui-cards.html">Pelayanan Diakonia</a></li>
-                    </ul>
-                </li>
+                @if (auth()->user()->hasAnyRole(['super_admin', 'sinode']))
+                    <li class="has-submenu">
+                        <a href="users"><i class="mdi mdi-account-key-outline"></i>Users</a>
+                    </li>
 
-                <li class="has-submenu">
-                    <a href="rencana-anggaran"><i class="mdi mdi-spa-outline"></i>Rencana Anggaran</a>
-                </li>
-
-                <li class="has-submenu">
-                    <a href="users"><i class="mdi mdi-account-key-outline"></i>Users</a>
-                </li>
-
-                <li class="has-submenu">
-                    <a href="#"> <i class="fe-settings"></i>Pengaturan</a>
-                    <ul class="submenu">
-                        <li><a href="roles">Role User Akses</a></li>
-                        {{-- <li><a href="email-read.html">Read Email</a></li>
+                    <li class="has-submenu">
+                        <a href="#"> <i class="fe-settings"></i>Pengaturan</a>
+                        <ul class="submenu">
+                            <li><a href="roles">Role User Akses</a></li>
+                            {{-- <li><a href="email-read.html">Read Email</a></li>
                         <li><a href="email-compose.html">Compose Email</a></li> --}}
-                    </ul>
-                </li>
+                        </ul>
+                    </li>
+                @endif
 
             </ul>
             <!-- End navigation menu -->
