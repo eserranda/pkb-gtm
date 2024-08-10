@@ -47,7 +47,9 @@
                     <li class="has-submenu">
                         <a href="program"><i class="fe-briefcase"></i>Program Kerja</a>
                     </li>
+                @endif
 
+                @if (auth()->user()->hasAnyRole(['super_admin', 'sinode', 'bendahara_sinode']))
                     <li class="has-submenu">
                         <a href="rencana-anggaran"><i class="mdi mdi-spa-outline"></i>Rencana Anggaran</a>
                     </li>
