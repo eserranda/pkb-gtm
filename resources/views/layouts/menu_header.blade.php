@@ -21,10 +21,12 @@
                 </li> --}}
 
                 <li class="has-submenu">
-                    <a href="#">
-                        <i class="fe-airplay"></i>
-                        Data Administrasi
-                    </a>
+                    @if (auth()->user()->hasAnyRole(['super_admin', 'klasis', 'sinode', 'jemaat']))
+                        <a href="#">
+                            <i class="fe-airplay"></i>
+                            Data Administrasi
+                        </a>
+                    @endif
                     <ul class="submenu">
                         @if (auth()->user()->hasAnyRole(['super_admin', 'sinode']))
                             <li><a href="/surat-masuk-sinode">Surat Masuk</a></li>
@@ -52,7 +54,7 @@
                 @endif
 
 
-                @if (auth()->user()->hasAnyRole(['super_admin', 'jemaat']))
+                @if (auth()->user()->hasAnyRole(['super_admin', 'jemaat', 'anggota_jemaat']))
                     <li class="has-submenu">
                         <a href="#">
                             <i class="mdi mdi-shield-cross-outline"></i>Jadwal Pelayanan</a>

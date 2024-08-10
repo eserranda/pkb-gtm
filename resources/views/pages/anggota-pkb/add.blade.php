@@ -170,8 +170,6 @@
                         if (inputField && fieldName == 'id_klasis' || inputField && fieldName ==
                             'id_jemaat') {
                             inputField.classList.add('is-invalid');
-                            // inputField.nextElementSibling.textContent = data.messages[
-                            //     fieldName][0];
                         } else {
                             inputField.classList.add('is-invalid');
                             if (inputField.nextElementSibling) {

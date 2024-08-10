@@ -64,9 +64,11 @@
                     <div class="d-flex gap-2">
                         <button type="button" class="btn btn-info waves-effect" id="btnPrint">Print</button>
                         <button type="button" class="btn btn-success waves-effect mx-1" id="btnExcel">Excel</button>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal">
-                            ADD
-                        </button>
+                        @if (auth()->user()->hasAnyRole(['super_admin', 'jemaat']))
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal">
+                                ADD
+                            </button>
+                        @endif
                     </div>
                 </div>
 
