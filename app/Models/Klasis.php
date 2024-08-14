@@ -11,6 +11,8 @@ class Klasis extends Model
     protected $fillable = [
         'wilayah',
         'nama_klasis',
+        'koordinator',
+        'no_telp',
         'alamat',
     ];
 

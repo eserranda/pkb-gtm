@@ -72,6 +72,8 @@ class KlasisController extends Controller
         $validator = Validator::make($request->all(), [
             'wilayah' => 'required',
             'nama_klasis' => 'required',
+            'koordinator' => 'required',
+            'no_telp' => 'required',
         ], [
             'required' => ':attribute harus diisi',
         ]);
@@ -87,6 +89,8 @@ class KlasisController extends Controller
         $klasis = Klasis::create([
             'wilayah' => $request->wilayah,
             'nama_klasis' => $request->nama_klasis,
+            'koordinator' => $request->koordinator,
+            'no_telp' => $request->no_telp,
         ]);
 
         if ($klasis) {
@@ -108,6 +112,8 @@ class KlasisController extends Controller
         $validator = Validator::make($request->all(), [
             'edit_wilayah' => 'required',
             'edit_nama_klasis' => 'required',
+            'edit_koordinator' => 'required',
+            'edit_no_telp' => 'required',
         ], [
             'required' => ':attribute harus diisi',
         ]);
@@ -122,6 +128,8 @@ class KlasisController extends Controller
         $update = $klasis::where('id', $request->input('id'))->update([
             'wilayah' => $request->input('edit_wilayah'),
             'nama_klasis' => $request->input('edit_nama_klasis'),
+            'koordinator' => $request->input('edit_koordinator'),
+            'no_telp' => $request->input('edit_no_telp'),
         ]);
 
         if ($update) {

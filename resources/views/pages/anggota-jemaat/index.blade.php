@@ -150,7 +150,7 @@
                 if (result.isConfirmed) {
                     var csrfToken = $('meta[name="csrf-token"]').attr('content');
                     $.ajax({
-                        url: '/jemaat/destroy/' + id,
+                        url: '/anggota-jemaat/destroy/' + id,
                         type: 'DELETE',
                         data: {
                             _token: csrfToken

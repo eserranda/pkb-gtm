@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class AnggotaJemaat extends Model
 {
     protected $fillable = [
+        'id_klasis',
         'id_jemaat',
         'nama_anggota',
         'gender',
@@ -31,6 +32,11 @@ class AnggotaJemaat extends Model
     public function jemaat()
     {
         return $this->belongsTo(Jemaat::class, 'id_jemaat');
+    }
+
+    public function klasis()
+    {
+        return $this->belongsTo(Klasis::class, 'id_klasis');
     }
 
     use HasFactory;

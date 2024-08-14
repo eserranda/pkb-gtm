@@ -60,6 +60,8 @@
                             <th>No</th>
                             <th>Klasis</th>
                             <th>Wilayah</th>
+                            <th>Koordinator</th>
+                            <th>No Telp.</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -107,9 +109,10 @@
                     document.getElementById('edit_nama_klasis').value = data.nama_klasis;
                     document.getElementById('edit_wilayah').value = data.wilayah;
                     document.getElementById('edit_alamat').value = data.alamat;
+                    document.getElementById('edit_koordinator').value = data.koordinator;
+                    document.getElementById('edit_no_telp').value = data.no_telp;
                 })
                 .catch(error => console.error(error));
-            // show modal edit
             $('#editModal').modal('show');
         }
 
@@ -211,11 +214,16 @@
                         name: 'wilayah',
                         orderable: false,
                     },
-                    // {
-                    //     data: 'alamat',
-                    //     name: 'alamat',
-                    //     orderable: false,
-                    // },
+                    {
+                        data: 'koordinator',
+                        name: 'koordinator',
+                        orderable: false,
+                    },
+                    {
+                        data: 'no_telp',
+                        name: 'no_telp',
+                        orderable: false,
+                    },
                     {
                         data: 'action',
                         name: 'action',

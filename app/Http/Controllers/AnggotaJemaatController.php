@@ -34,6 +34,20 @@ class AnggotaJemaatController extends Controller
                         return '-';
                     }
                 })
+                ->editColumn('baptis', function ($row) {
+                    if ($row->baptis == 1) {
+                        return 'Ya';
+                    } else {
+                        return 'Tidak';
+                    }
+                })
+                ->editColumn('sidi', function ($row) {
+                    if ($row->sidi == 1) {
+                        return 'Ya';
+                    } else {
+                        return 'Tidak';
+                    }
+                })
                 ->addColumn('action', function ($row) {
                     $btn = '<div class="d-flex justify-content-start align-items-center">';
                     $btn .= '<a class="btn btn-outline-secondary btn-sm mx-1" title="Edit" onclick="edit(' . $row->id . ')"> <i class="fas fa-pencil-alt"></i> </a>';
@@ -81,8 +95,48 @@ class AnggotaJemaatController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'id_klasis' => 'required',
+            'id_jemaat' => 'required',
+            'nama_anggota' => 'required',
+            'gender' => 'required',
+            'alamat' => 'required',
+            'status_tempat_tinggal' => 'required',
+            'mulai_berjemaat' => 'required',
+            'status_pernikahan' => 'required',
+            'tempat_lahir' => 'required',
+            'tgl_lahir' => 'required',
+            'pendidikan' => 'required',
+            'pekerjaan' => 'required',
+            'baptis' => 'required',
+            'sidi' => 'required',
+            'nama_ayah' => 'required',
+            'nama_ibu' => 'required',
+            'keterangan' => 'required',
+        ], [
+            'required' => ':attribute harus diisi'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'messages' => $validator->errors()
+            ], 422);
+        }
+
+        $save = AnggotaJemaat::create($request->all());
+
+        if ($save) {
+            return response()->json([
+                'success' => true
+            ], 201);
+        } else {
+            return response()->json([
+                'success' => false
+            ], 500);
+        }
     }
+
 
     /**
      * Display the specified resource.
@@ -111,8 +165,15 @@ class AnggotaJemaatController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(AnggotaJemaat $anggotaJemaat)
+    public function destroy(AnggotaJemaat $anggotaJemaat, $id)
     {
-        //
+        try {
+            $deleted = $anggotaJemaat::findOrFail($id);
+            $deleted->delete();
+
+            return response()->json(['status' => true, 'message' => 'Data berhasil dihapus'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['status' => false, 'message' => 'Gagal menghapus data'], 500);
+        }
     }
 }

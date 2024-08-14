@@ -42,13 +42,20 @@
 
                     </div>
 
-                    {{-- <div class="form-row">
+                    <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label class="col-form-label">Alamat</label>
-                            <textarea class="form-control" name="alamat" id="alamat" rows="3" placeholder="Alamat"></textarea>
+                            <label class="col-form-label">Koordinator</label>
+                            <input type="text" class="form-control" name="koordinator" id="koordinator"
+                                placeholder="Koordinator">
                             <div class="invalid-feedback"></div>
                         </div>
-                    </div> --}}
+                        <div class="form-group col-md-6">
+                            <label class="col-form-label">No Telp.</label>
+                            <input type="number" class="form-control" name="no_telp" id="no_telp"
+                                placeholder="No Telp.">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
                     <div class="float-end">
                         <button type="button" class="btn btn-light waves-effect mr-2"
                             onclick="closeModalAdd()">Batal</button>

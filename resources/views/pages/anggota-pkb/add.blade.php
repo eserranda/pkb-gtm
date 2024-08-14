@@ -13,17 +13,13 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label class="col-form-label">Pilih Klasis</label>
-                            <select name="id_klasis" id="id_klasis">
-                            </select>
+                            <select name="id_klasis" id="id_klasis"> </select>
                             <div class="invalid-feedback">
                             </div>
                         </div>
                         <div class="form-group col-md-6">
-                            <label class="col-form-label">Pilih Jemaat
-                                <span class="text-danger">*</span>
-                            </label>
-                            <select name="id_jemaat" id="id_jemaat">
-                            </select>
+                            <label class="col-form-label">Pilih Jemaat </label>
+                            <select name="id_jemaat" id="id_jemaat"> </select>
                             <div class="invalid-feedback"></div>
                         </div>
 
