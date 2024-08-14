@@ -133,7 +133,7 @@
                 if (result.isConfirmed) {
                     var csrfToken = $('meta[name="csrf-token"]').attr('content');
                     $.ajax({
-                        url: '/users-jemaat/destroy/' + id,
+                        url: '/users/destroy/' + id,
                         type: 'DELETE',
                         data: {
                             _token: csrfToken
