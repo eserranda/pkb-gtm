@@ -131,6 +131,7 @@
                 .then(response => response.json())
                 .then(data => {
                     document.getElementById('edit_id').value = data.id;
+                    document.getElementById('edit_id_jemaat').value = data.id_jemaat;
                     document.getElementById('edit_id_anggota_pkb').value = data.id_anggota_pkb;
                     document.getElementById('edit_kelompok').value = data.kelompok;
                     document.getElementById('edit_tanggal').value = data.tanggal;
@@ -141,7 +142,9 @@
                     document.getElementById('edit_lelang').value = data.lelang;
                     document.getElementById('edit_tempat_ibadah').value = data.tempat_ibadah;
 
+                    var editIdJemaatSelect = document.getElementById('edit_id_jemaat');
                     var editIdAnggotaPkbSelect = document.getElementById('edit_id_anggota_pkb');
+
 
                     fetch('/anggota-pkb/findOne/' + data.id_anggota_pkb, {
                             method: 'GET',
@@ -161,6 +164,22 @@
                         .catch(error => console.error('Error fetching data:', error));
 
 
+                    fetch('/jemaat/findOne/' + data.id_jemaat, {
+                            method: 'GET',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            }
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Gagal mengambil data');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            updateOptionsAndSelect2Jemaat(editIdJemaatSelect, data.id, data.nama_jemaat);
+                        })
+                        .catch(error => console.error('Error fetching data:', error));
 
                     // show modal edit
                     $('#editModal').modal('show');
@@ -170,6 +189,18 @@
 
 
         function updateOptionsAndSelect2AnggotaPkb(selectElement, id, name) {
+            // Hapus semua opsi yang ada di elemen <select>
+            $(selectElement).empty();
+
+            // Tambahkan opsi baru ke elemen <select>
+            var option = new Option(name, id, true, true);
+            $(selectElement).append(option);
+
+            // Perbarui tampilan Select2
+            $(selectElement).trigger('change');
+        }
+
+        function updateOptionsAndSelect2Jemaat(selectElement, id, name) {
             // Hapus semua opsi yang ada di elemen <select>
             $(selectElement).empty();
 

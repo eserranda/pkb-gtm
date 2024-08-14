@@ -12,12 +12,23 @@
                 <form id="addForm">
                     <div class="form-row">
                         <div class="form-group col-md-6">
+                            <label class="col-form-label">Pilih Jemaat </label>
+                            <select name="id_jemaat" id="id_jemaat"> </select>
+                            <div class="invalid-feedback"></div>
+                        </div>
+
+                        <div class="form-group col-md-6">
                             <label class="col-form-label">Nama Anggota PKB</label>
                             <select name="id_anggota_pkb" id="id_anggota_pkb">
                             </select>
                             <div class="invalid-feedback">
                             </div>
                         </div>
+
+
+                    </div>
+
+                    <div class="form-row">
                         <div class="form-group col-md-6">
                             <label class="col-form-label">Kelompok
                                 <span class="text-danger">*</span>
@@ -27,9 +38,6 @@
                             <div class="invalid-feedback"></div>
                         </div>
 
-                    </div>
-
-                    <div class="form-row">
                         <div class="form-group col-md-6">
                             <label class="col-form-label">Tanggal
                                 <span class="text-danger">*</span>
@@ -39,14 +47,7 @@
                             <div class="invalid-feedback"></div>
                         </div>
 
-                        <div class="form-group col-md-6">
-                            <label class="col-form-label">Pelayan Firman
-                                <span class="text-danger">*</span>
-                            </label>
-                            <input type="text" class="form-control" id="pelayan_firman" name="pelayan_firman"
-                                placeholder="Pelayang Firman">
-                            <div class="invalid-feedback"></div>
-                        </div>
+
 
 
                         {{-- <div class="form-group col-md-6">
@@ -57,6 +58,16 @@
                     </div>
 
                     <div class="form-row">
+
+                        <div class="form-group col-md-6">
+                            <label class="col-form-label">Pelayan Firman
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" class="form-control" id="pelayan_firman" name="pelayan_firman"
+                                placeholder="Pelayang Firman">
+                            <div class="invalid-feedback"></div>
+                        </div>
+
                         <div class="form-group col-md-6">
                             <label class="col-form-label">Master Ceremonial (MC)
                                 <span class="text-danger">*</span>
@@ -66,6 +77,10 @@
                             <div class="invalid-feedback"></div>
                         </div>
 
+                    </div>
+
+                    <div class="form-row">
+
                         <div class="form-group col-md-6">
                             <label class="col-form-label">Persembahan
                                 <span class="text-danger">*</span>
@@ -74,9 +89,7 @@
                                 placeholder="Persembahan">
                             <div class="invalid-feedback"></div>
                         </div>
-                    </div>
 
-                    <div class="form-row">
                         <div class="form-group col-md-6">
                             <label class="col-form-label">Kolektan
                                 <span class="text-danger">*</span>
@@ -86,6 +99,10 @@
                             <div class="invalid-feedback"></div>
                         </div>
 
+
+                    </div>
+
+                    <div class="form-row">
                         <div class="form-group col-md-6">
                             <label class="col-form-label">Lelang
                                 <span class="text-danger">*</span>
@@ -94,9 +111,7 @@
                                 placeholder="Lelang">
                             <div class="invalid-feedback"></div>
                         </div>
-                    </div>
 
-                    <div class="form-row">
                         <div class="form-group col-md-6">
                             <label class="col-form-label">Tempat Ibadah
                                 <span class="text-danger">*</span>
@@ -127,6 +142,23 @@
                 // minimumInputLength: 1,
                 ajax: {
                     url: '/anggota-pkb/getAllAnggota',
+                    dataType: 'json',
+                    delay: 250,
+                    processResults: function(data) {
+                        return {
+                            results: data
+                        };
+                    },
+                    cache: true
+                }
+            });
+
+            $('#id_jemaat').select2({
+                theme: "bootstrap-5",
+                placeholder: "Pilih Jemaat",
+                // minimumInputLength: 1,
+                ajax: {
+                    url: '/jemaat/getAllJemaat',
                     dataType: 'json',
                     delay: 250,
                     processResults: function(data) {
@@ -196,7 +228,7 @@
                 if (!data.success) {
                     Object.keys(data.messages).forEach(fieldName => {
                         const inputField = document.getElementById(fieldName);
-                        if (inputField && fieldName == 'id_klasis' || inputField &&
+                        if (inputField && fieldName == 'id_jemaat' || inputField &&
                             fieldName ==
                             'id_anggota_pkb') {
                             inputField.classList.add('is-invalid');
@@ -216,7 +248,7 @@
                     validFields.forEach(validField => {
                         const fieldName = validField.id;
                         if (!data.messages[fieldName]) {
-                            if (fieldName === 'id_klasis' || fieldName === 'id_anggota_pkb') {
+                            if (fieldName === 'id_jemaat' || fieldName === 'id_anggota_pkb') {
                                 validField.classList.remove('is-invalid');
                             } else {
                                 validField.classList.remove('is-invalid');

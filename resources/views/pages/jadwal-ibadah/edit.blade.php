@@ -12,11 +12,17 @@
                 <form id="editForm">
                     <div class="form-row">
                         <div class="form-group col-md-6">
+                            <label class="col-form-label">Jemaat</label>
+                            <select name="edit_id_jemaat" id="edit_id_jemaat">
+                            </select>
+                            <div class="invalid-feedback"> </div>
+                        </div>
+
+                        <div class="form-group col-md-6">
                             <label class="col-form-label">Nama Anggota PKB</label>
                             <select name="edit_id_anggota_pkb" id="edit_id_anggota_pkb">
                             </select>
-                            <div class="invalid-feedback">
-                            </div>
+                            <div class="invalid-feedback"> </div>
                         </div>
                         <div class="form-group col-md-6">
                             <label class="col-form-label">Kelompok
@@ -116,6 +122,23 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
+            $('#edit_id_jemaat').select2({
+                theme: "bootstrap-5",
+                placeholder: "Pilih Jemaat",
+                // minimumInputLength: 1,
+                ajax: {
+                    url: '/jemaat/getAllJemaat',
+                    dataType: 'json',
+                    delay: 250,
+                    processResults: function(data) {
+                        return {
+                            results: data
+                        };
+                    },
+                    cache: true
+                }
+            });
+
             $('#edit_id_anggota_pkb').select2({
                 theme: "bootstrap-5",
                 placeholder: "Pilih Anggota PKB",

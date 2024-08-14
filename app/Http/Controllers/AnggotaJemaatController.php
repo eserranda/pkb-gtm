@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\AnggotaJemaat;
 use App\Imports\AnggotaJemaatImport;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
@@ -17,6 +18,7 @@ class AnggotaJemaatController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
+            $id_jemaat = Auth::user()->id_jemaat;
             $bidangFilter = $request->input('filter');
 
             $query = AnggotaJemaat::query();
@@ -24,12 +26,29 @@ class AnggotaJemaatController extends Controller
                 $query->where('id_klasis', $bidangFilter);
             }
 
-            $data = $query->latest('created_at')->get();
+            $data = $query->where('id_jemaat', $id_jemaat)->latest('created_at')->get();
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('id_jemaat', function ($row) {
                     if ($row->id_jemaat) {
                         return $row->jemaat->nama_jemaat;
+                    } else {
+                        return '-';
+                    }
+                })
+                ->editColumn('mulai_berjemaat', function ($row) {
+                    return date('d-m-Y', strtotime($row->mulai_berjemaat));
+                })
+                ->editColumn('tgl_lahir', function ($row) {
+                    if ($row->tgl_lahir) {
+                        return date('d-m-Y', strtotime($row->tgl_lahir));
+                    } else {
+                        return '-';
+                    }
+                })
+                ->editColumn('tgl_pernikahan', function ($row) {
+                    if ($row->tgl_pernikahan) {
+                        return date('d-m-Y', strtotime($row->tgl_pernikahan));
                     } else {
                         return '-';
                     }

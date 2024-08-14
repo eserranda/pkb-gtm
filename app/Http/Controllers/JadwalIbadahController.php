@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\JadwalIbadah;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
 
@@ -15,6 +16,7 @@ class JadwalIbadahController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
+            $id_jemaat = Auth::user()->id_jemaat;
             $filterData = $request->input('filter');
 
             $query = JadwalIbadah::query();
@@ -23,6 +25,7 @@ class JadwalIbadahController extends Controller
             }
 
             $data = $query->latest('created_at')->get();
+            // $data = $query->where('id_jemaat', $id_jemaat)->latest('created_at')->get();
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('id_anggota_pkb', function ($row) {
@@ -49,6 +52,7 @@ class JadwalIbadahController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            'id_jemaat' => 'required',
             'id_anggota_pkb' => 'required',
             'kelompok' => 'required',
             'tanggal' => 'required',
@@ -110,6 +114,7 @@ class JadwalIbadahController extends Controller
     public function update(Request $request, JadwalIbadah $jadwalIbadah)
     {
         $validator = Validator::make($request->all(), [
+            'edit_id_jemaat' => 'required',
             'edit_id_anggota_pkb' => 'required',
             'edit_kelompok' => 'required',
             'edit_tanggal' => 'required',
@@ -131,6 +136,7 @@ class JadwalIbadahController extends Controller
         }
 
         $update = $jadwalIbadah::where('id', $request->input('id'))->update([
+            'id_jemaat' => $request->input('edit_id_jemaat'),
             'id_anggota_pkb' => $request->input('edit_id_anggota_pkb'),
             'kelompok' => $request->input('edit_kelompok'),
             'tanggal' => $request->input('edit_tanggal'),

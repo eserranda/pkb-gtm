@@ -1,9 +1,8 @@
-<!-- resources/views/anggota/add.blade.php -->
-<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+<div id="addModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addModalLabel">Tambah Data Jemaat</h5>
+                <h5 class="modal-title mt-0" id="myModalLabel">Tambah Data Users Jemaat</h5>
                 <button type="button" class="close" onclick="closeModalAdd()">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -12,58 +11,89 @@
                 <form id="addForm">
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label class="col-form-label">Pilih Klasis</label>
-                            <select name="id_klasis" id="id_klasis">
-                                <option value="" selected disabled>Pilih klasis</option>
+                            <label class="col-form-label">Pilih Nama Jemaat</label>
+                            <select name="id_jemaat" id="id_jemaat">
+                                <option value="" selected disabled>Pilih Jemaat</option>
                                 <div class="invalid-feedback"> </div>
                             </select>
                         </div>
 
+                        <!-- end col -->
                         <div class="form-group col-md-6">
-                            <label class="form-label">Nama Jemaat</label>
-                            <input type="text" class="form-control" id="nama_jemaat" name="nama_jemaat"
-                                placeholder="Nama Jemaat">
+                            <label class="form-label" for="username">Nama Jemaat</label>
+                            <input type="text" class="form-control" id="name" name="name"
+                                placeholder="Nama Klasis" readonly>
                             <div class="invalid-feedback"></div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label class="form-label" for="username">Username</label>
+                            <input type="text" class="form-control" id="username" name="username"
+                                placeholder="Username">
+                            <div class="invalid-feedback">
+
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label class="form-label" for="email">Email</label>
+                            <input type="text" class="form-control" id="email" name="email"
+                                placeholder="Email">
+                            <div class="invalid-feedback">
+
+                            </div>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label class="col-form-label">Nama Pelayan
-                                <span class="text-danger">*</span>
-                            </label>
-                            <input type="text" class="form-control" id="pelayan" name="pelayan"
-                                placeholder="Nama Pelayan">
+                            <label class="form-label" for="password">Password</label>
+                            <input type="text" class="form-control" id="password" name="password"
+                                placeholder="Password">
                             <div class="invalid-feedback">
                             </div>
                         </div>
 
                         <div class="form-group col-md-6">
-                            <label class="col-form-label">Alamat</label>
-                            <textarea class="form-control" name="alamat" id="alamat" rows="3" placeholder="Alamat"></textarea>
-                            <div class="invalid-feedback"></div>
+                            <label class="form-label" for="password_confirmation">Password Confirmation</label>
+                            <input type="text" class="form-control" id="password_confirmation"
+                                name="password_confirmation" placeholder="Password Confirmation">
+                            <div class="invalid-feedback">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label class="form-label" for="role">Role</label>
+                            <div id="rolesContainer"></div>
                         </div>
                     </div>
                     <div class="float-end">
-                        <button type="button" class="btn btn-light waves-effect mr-2"
-                            onclick="closeModalAdd()">Batal</button>
-                        <button type="submit" class="btn btn-primary">Simpan</button>
+                        <button type="button" class="btn btn-light waves-effect mx-2"
+                            data-bs-dismiss="modal">Batal</button>
+                        <button class="btn btn-primary  " type="submit">Simpan</button>
                     </div>
                 </form>
+                <!-- end form -->
             </div>
-        </div>
-    </div>
-</div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 
 @push('scripts')
     <script>
         $(document).ready(function() {
-            $('#id_klasis').select2({
+            $('#id_jemaat').select2({
                 theme: "bootstrap-5",
-                placeholder: "Pilih Klasis",
+                placeholder: "Pilih Jemaat",
                 // minimumInputLength: 1,
                 ajax: {
-                    url: '/klasis/getAllKlasis',
+                    url: '/jemaat/getAllJemaat',
                     dataType: 'json',
                     delay: 250,
                     processResults: function(data) {
@@ -74,6 +104,42 @@
                     cache: true
                 }
             });
+
+            $('#id_jemaat').on('select2:select', function(e) {
+                var selectedData = e.params.data;
+                $('#name').val(selectedData.text); // Mengisi input "nama" dengan "nama_klasis"
+            });
+
+        });
+
+        $('#addModal').on('shown.bs.modal', function() {
+            fetch('/roles/getAllRoles')
+                .then(response => response.json())
+                .then(data => {
+                    const rolesContainer = document.getElementById('rolesContainer');
+                    rolesContainer.innerHTML = ''; // Clear any existing content
+                    data.forEach(role => {
+                        const div = document.createElement('div');
+                        div.className = 'custom-control custom-checkbox custom-control-inline';
+
+                        const checkbox = document.createElement('input');
+                        checkbox.type = 'checkbox';
+                        checkbox.className = 'custom-control-input';
+                        checkbox.id = `role_${role.id}`;
+                        checkbox.name = 'roles[]';
+                        checkbox.value = role.name;
+
+                        const label = document.createElement('label');
+                        label.className = 'custom-control-label';
+                        label.htmlFor = `role_${role.id}`;
+                        label.appendChild(document.createTextNode(role.name));
+
+                        div.appendChild(checkbox);
+                        div.appendChild(label);
+                        rolesContainer.appendChild(div);
+                    });
+                })
+                .catch(error => console.error('Error fetching data:', error));
         });
 
         function closeModalAdd() {
@@ -101,7 +167,7 @@
             const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
 
             try {
-                const response = await fetch('/jemaat/store', {
+                const response = await fetch('/users-jemaat/register', {
                     method: 'POST',
                     headers: {
                         'Accept': 'application/json',
@@ -115,7 +181,7 @@
                 if (!data.success) {
                     Object.keys(data.messages).forEach(fieldName => {
                         const inputField = document.getElementById(fieldName);
-                        if (inputField && fieldName == 'id_klasis') {
+                        if (inputField && fieldName == 'id_jemaat') {
                             inputField.classList.add('is-invalid');
                         } else {
                             inputField.classList.add('is-invalid');
@@ -131,7 +197,7 @@
                     validFields.forEach(validField => {
                         const fieldName = validField.id;
                         if (!data.messages[fieldName]) {
-                            if (fieldName === 'id_klasis') {
+                            if (fieldName === 'id_jemaat') {
                                 validField.classList.remove('is-invalid');
                             } else {
                                 validField.classList.remove('is-invalid');
@@ -152,12 +218,11 @@
                         }
                     });
 
-                    const form = document.getElementById('addForm');
-                    form.reset();
-
                     $('#datatable').DataTable().ajax.reload();
                     $('#addModal').modal('hide');
                 }
+
+
             } catch (error) {
                 console.error(error);
             }

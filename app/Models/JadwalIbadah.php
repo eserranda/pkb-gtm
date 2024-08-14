@@ -9,6 +9,7 @@ class JadwalIbadah extends Model
 {
 
     protected $fillable = [
+        'id_jemaat',
         'id_anggota_pkb',
         'kelompok',
         'tanggal',

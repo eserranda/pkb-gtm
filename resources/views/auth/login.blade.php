@@ -34,13 +34,21 @@
                                     password</p>
                             </div>
 
+                            @error('login')
+                                <ul class="alert alert-danger">
+                                    <li>{{ $message }}</li>
+                                </ul>
+                            @enderror
+
+                            @if (session('status'))
+                                <div class="alert alert-success" role="alert">
+                                    {{ session('status') }}
+                                </div>
+                            @endif
+
                             <form method="POST" action="{{ route('login') }}">
                                 @csrf
-                                @error('login')
-                                    <ul class="alert alert-danger">
-                                        <li>{{ $message }}</li>
-                                    </ul>
-                                @enderror
+
                                 <div class="form-group mb-3">
                                     <label>Username or email</label>
                                     <input class="form-control" type="text" name="login"
@@ -48,12 +56,13 @@
                                 </div>
 
                                 <div class="form-group mb-3">
-                                    {{-- <a href="page-recoverpw.html" class="text-muted float-right"><small>Forgot your
-                                            password?</small></a> --}}
+                                    <a href="/forgot-password" class="text-muted float-right">
+                                        <small>Lupa Password?</small>
+                                    </a>
 
                                     <label for="password">Password</label>
                                     <input class="form-control" type="password" name="password"
-                                        placeholder="Enter your password">
+                                        placeholder="Masukkan password">
                                 </div>
 
 

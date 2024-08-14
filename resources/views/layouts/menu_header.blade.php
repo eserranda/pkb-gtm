@@ -8,18 +8,6 @@
                     <a href="/dashboard"><i class="fe-grid"></i>Dashboard</a>
                 </li>
 
-                {{-- <li class="has-submenu">
-                    <a href="#"><i class="fe-airplay"></i>Administrasi
-                    </a>
-                    <ul class="submenu">
-                        <li><a href="/anggota">Data Anggota</a></li>
-                        <li><a href="/pengurus">Daftar Pengurus</a></li>
-                        <li><a href="/surat-masuk">Agenda Surat Masuk</a></li>
-                        <li><a href="/surat-keluar">Agenda Surat Keluar</a></li>
-                        <li><a href="/tamu">Data Tamu</a></li>
-                    </ul>
-                </li> --}}
-
                 <li class="has-submenu">
                     @if (auth()->user()->hasAnyRole(['super_admin', 'klasis', 'sinode', 'jemaat']))
                         <a href="#">
@@ -67,20 +55,27 @@
                     </li>
                 @endif
 
-                @if (auth()->user()->hasAnyRole(['super_admin', 'sinode']))
-                    <li class="has-submenu">
-                        <a href="users"><i class="mdi mdi-account-key-outline"></i>Users</a>
-                    </li>
+                <li class="has-submenu">
+                    <a href="#"><i class="mdi mdi-account-key-outline"></i>Users </a>
+                    <ul class="submenu">
+                        @if (auth()->user()->hasAnyRole(['super_admin', 'klasis']))
+                            <li><a href="/users-klasis">Users Klasis</a></li>
+                        @endif
+                        @if (auth()->user()->hasAnyRole(['super_admin', 'jemaat']))
+                            <li><a href="/users-jemaat">Users Jemaat</a></li>
+                        @endif
+                        @if (auth()->user()->hasAnyRole(['super_admin', 'sinode']))
+                            <li><a href="/users">Users</a></li>
+                        @endif
+                    </ul>
+                </li>
 
-                    <li class="has-submenu">
-                        <a href="#"> <i class="fe-settings"></i>Pengaturan</a>
-                        <ul class="submenu">
-                            <li><a href="roles">Role User Akses</a></li>
-                            {{-- <li><a href="email-read.html">Read Email</a></li>
-                        <li><a href="email-compose.html">Compose Email</a></li> --}}
-                        </ul>
-                    </li>
-                @endif
+                <li class="has-submenu">
+                    <a href="#"> <i class="fe-settings"></i>Pengaturan</a>
+                    <ul class="submenu">
+                        <li><a href="roles">Role User Akses</a></li>
+                    </ul>
+                </li>
 
             </ul>
             <!-- End navigation menu -->

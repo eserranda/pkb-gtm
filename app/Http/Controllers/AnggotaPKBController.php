@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AnggotaPKB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
 
@@ -13,6 +14,7 @@ class AnggotaPKBController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
+            $id_jemaat = Auth::user()->id_jemaat;
             $filterData = $request->input('filter');
 
             $query = AnggotaPKB::query();
@@ -20,7 +22,7 @@ class AnggotaPKBController extends Controller
                 $query->where('kelompok', $filterData);
             }
 
-            $data = $query->latest('created_at')->get();
+            $data = $query->where('id_jemaat', $id_jemaat)->latest('created_at')->get();
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('id_klasis', function ($row) {
