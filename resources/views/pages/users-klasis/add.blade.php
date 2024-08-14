@@ -73,8 +73,8 @@
                         </div>
                     </div> --}}
                     <div class="float-end">
-                        <button type="button" class="btn btn-light waves-effect mx-2"
-                            data-bs-dismiss="modal">Batal</button>
+                        <button type="button" class="btn btn-light waves-effec"
+                            onclick="closeModalAdd()">Batal</button>
                         <button class="btn btn-primary  " type="submit">Simpan</button>
                     </div>
                 </form>
