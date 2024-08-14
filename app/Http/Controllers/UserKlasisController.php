@@ -49,8 +49,8 @@ class UserKlasisController extends Controller
             'username' => ['required', 'string', 'max:255', 'unique:users', 'regex:/^\S*$/u'],
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
-            'roles' => 'required|array',
-            'roles.*' => 'exists:roles,name',
+            // 'roles' => 'required|array',
+            // 'roles.*' => 'exists:roles,name',
         ], [
             'id_klasis.required' => 'Klasis Tidak Boleh Kosong',
             'name.required' => 'Nama Tidak Boleh Kosong',
@@ -82,7 +82,8 @@ class UserKlasisController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        $user->roles()->attach(Role::whereIn('name', $request->roles)->get());
+        $roles = ['klasis'];
+        $user->roles()->attach(Role::whereIn('name', $roles)->get());
 
         return response()->json([
             'success' => true,

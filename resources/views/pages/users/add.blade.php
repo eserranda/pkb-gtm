@@ -61,11 +61,6 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label class="form-label" for="role">Role</label>
-                            <div id="rolesContainer"></div>
-
-                            {{-- <div class="invalid-feedback">
-
-                            </div> --}}
                         </div>
                     </div>
                     <div class="float-end">
