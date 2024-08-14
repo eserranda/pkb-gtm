@@ -15,9 +15,21 @@ class UserJemaatController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $id_jemaat = Auth::user()->id_jemaat;
+            // $userRoles = Auth::user()->roles->pluck('name')->toArray();  
+            // if (array_intersect($userRoles, ['klasis', 'admin', 'supervisor'])) {
+            //     $data = User::latest('created_at')->get();
+            //     return response()->json($data);
+            // }
 
-            $data = User::where('id_jemaat', $id_jemaat)->latest('created_at')->get();
+            if (Auth::user()->hasAnyRole(['super_admin'])) {
+                $data = User::whereHas('roles', function ($query) {
+                    $query->where('name', 'jemaat');
+                })->latest('created_at')->get();
+            } else if (Auth::user()->hasAnyRole(['jemaat'])) {
+                $id_jemaat = Auth::user()->id_jemaat;
+                $data = User::where('id_jemaat', $id_jemaat)->latest('created_at')->get();
+            }
+
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('role', function ($user) {

@@ -24,8 +24,8 @@ class JadwalIbadahController extends Controller
                 $query->where('kelompok', $filterData);
             }
 
-            $data = $query->latest('created_at')->get();
-            // $data = $query->where('id_jemaat', $id_jemaat)->latest('created_at')->get();
+            // $data = $query->latest('created_at')->get();
+            $data = $query->where('id_jemaat', $id_jemaat)->latest('created_at')->get();
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('id_anggota_pkb', function ($row) {

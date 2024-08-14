@@ -14,10 +14,17 @@ class UserKlasisController extends Controller
 {
     public function index(Request $request)
     {
-        if ($request->ajax()) {
-            $id_klasis = Auth::user()->id_klasis;
 
-            $data = User::where('id_klasis', $id_klasis)->latest('created_at')->get();
+        if ($request->ajax()) {
+            if (Auth::user()->hasAnyRole(['super_admin'])) {
+                $data = User::whereHas('roles', function ($query) {
+                    $query->where('name', 'klasis');
+                })->latest('created_at')->get();
+            } else if (Auth::user()->hasAnyRole(['klasis'])) {
+                $id_klasis = Auth::user()->id_klasis;
+                $data = User::where('id_klasis', $id_klasis)->latest('created_at')->get();
+            }
+
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('role', function ($user) {
@@ -31,7 +38,7 @@ class UserKlasisController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        return view('pages.users-jemaat.index');
+        return view('pages.users-klasis.index');
     }
 
     public function register(Request $request)
