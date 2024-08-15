@@ -35,7 +35,7 @@
                                     </span>
                                 </a>
                                 <p class="text-muted sub-header mb-3 mt-3">Masukkan alamat email yang terdaftar untuk
-                                    menerima instruksi pengaturan ulang kata sandi Anda,</p>
+                                    menerima instruksi pengaturan ulang password Anda,</p>
                             </div>
                             @if ($errors->any())
                                 <ul class="alert alert-danger">

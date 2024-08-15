@@ -33,8 +33,7 @@
                                         <H4>Atur Ulang Kata Sandi</H4>
                                     </span>
                                 </a>
-                                <p class="text-muted sub-header mb-3 mt-3">Masukkan password min 8 karakter untuk
-                                    mengatur ulang password anda</p>
+                                <p class="text-muted sub-header mb-3 mt-3">Masukkan kata sandi baru min 8 karakter</p>
                             </div>
                             @if ($errors->any())
                                 <ul class="alert alert-danger">
