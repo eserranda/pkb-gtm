@@ -28,12 +28,9 @@
                         <div class="card-body p-4">
 
                             <div class="text-center m-auto">
-                                <a href="index.html">
-                                    <span>
-                                        <H4>Atur Ulang Kata Sandi</H4>
-                                    </span>
-                                </a>
-                                <p class="text-muted sub-header mb-3 mt-3">Masukkan kata sandi baru min 8 karakter</p>
+                                <h4 class="mb-3">Input Kata Sandi Baru</h4>
+
+                                {{-- <p class="text-muted sub-header mb-3 mt-3">Masukkan kata sandi baru min 8 karakter</p> --}}
                             </div>
                             @if ($errors->any())
                                 <ul class="alert alert-danger">
