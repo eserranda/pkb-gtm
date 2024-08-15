@@ -35,9 +35,9 @@
                             </div>
 
                             @error('login')
-                                <ul class="alert alert-danger">
-                                    <li>{{ $message }}</li>
-                                </ul>
+                                <div class="text-dark alert alert-danger" role="alert">
+                                    <b>{{ $message }}</b>
+                                </div>
                             @enderror
 
                             @if (session('status'))
@@ -50,22 +50,20 @@
                                 @csrf
 
                                 <div class="form-group mb-3">
-                                    <label>Username or email</label>
+                                    <label>Username atau Email</label>
                                     <input class="form-control" type="text" name="login"
                                         placeholder="Masukkan username atau email" value="{{ old('login') }}">
                                 </div>
 
                                 <div class="form-group mb-3">
-                                    <a href="/forgot-password" class="text-muted float-right">
+                                    {{-- <a href="/forgot-password" class="text-muted float-right">
                                         <small>Lupa Password?</small>
-                                    </a>
+                                    </a> --}}
 
                                     <label for="password">Password</label>
                                     <input class="form-control" type="password" name="password"
                                         placeholder="Masukkan password">
                                 </div>
-
-
 
                                 <div class="form-group mb-0 text-center">
                                     <button class="btn btn-gradient btn-block" type="submit"> Log In </button>
@@ -73,6 +71,13 @@
 
                             </form>
 
+                            <div class="row mt-3 justify-content-end">
+                                <div class="col-sm-12">
+                                    <a href="/forgot-password" class="text-dark float-right">
+                                        <b>Lupa Password?</b>
+                                    </a>
+                                </div>
+                            </div>
                         </div> <!-- end card-body -->
                     </div>
                     <!-- end card -->

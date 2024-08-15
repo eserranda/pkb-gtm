@@ -63,7 +63,7 @@ Route::prefix('surat-masuk-sinode')->controller(SuratMasukSinodeController::clas
 })->middleware('auth');
 
 Route::prefix('users-jemaat')->controller(UserJemaatController::class)->group(function () {
-    Route::get('/', 'index')->name('users-jemaat.index');
+    Route::get('/', 'index')->name('users-jemaat.index')->middleware('auth');
     Route::post('/register', 'register');
     // Route::get('/findById/{id}', 'findById');
     // Route::post('/update', 'update');
@@ -71,7 +71,7 @@ Route::prefix('users-jemaat')->controller(UserJemaatController::class)->group(fu
 })->middleware('auth');
 
 Route::prefix('users-klasis')->controller(UserKlasisController::class)->group(function () {
-    Route::get('/', 'index')->name('users-klasis.index');
+    Route::get('/', 'index')->name('users-klasis.index')->middleware('auth');
     Route::post('/register', 'register');
     // Route::get('/findById/{id}', 'findById');
     // Route::post('/update', 'update');
@@ -79,7 +79,7 @@ Route::prefix('users-klasis')->controller(UserKlasisController::class)->group(fu
 })->middleware('auth');
 
 Route::prefix('users')->controller(UserController::class)->group(function () {
-    Route::get('/', 'index')->name('users.index');
+    Route::get('/', 'index')->name('users.index')->middleware('auth');
     Route::post('/register', 'register');
     Route::get('/findById/{id}', 'findById');
     Route::post('/update', 'update');
