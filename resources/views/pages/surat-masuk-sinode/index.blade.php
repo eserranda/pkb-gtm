@@ -17,7 +17,7 @@
 @endpush
 
 @section('page_title')
-    Data Surat Masuk
+    Data Surat Masuk Sinode
 @endsection
 @section('content')
     <div class="row">

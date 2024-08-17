@@ -18,7 +18,7 @@ class AnggotaJemaatController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $id_jemaat = Auth::user()->id_jemaat;
+
             $bidangFilter = $request->input('filter');
 
             $query = AnggotaJemaat::query();
@@ -26,7 +26,13 @@ class AnggotaJemaatController extends Controller
                 $query->where('id_klasis', $bidangFilter);
             }
 
-            $data = $query->where('id_jemaat', $id_jemaat)->latest('created_at')->get();
+            if (auth()->user()->role == 'jemaat') {
+                $id_jemaat = Auth::user()->id_jemaat;
+                $data = $query->where('id_jemaat', $id_jemaat)->latest('created_at')->get();
+            } else {
+                $data = $query->latest('created_at')->get();
+            }
+
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('id_jemaat', function ($row) {

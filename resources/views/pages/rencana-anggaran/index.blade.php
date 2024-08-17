@@ -10,7 +10,7 @@
 @endpush
 
 @section('page_title')
-    Rencana Anggaran
+    Rencana Anggaran Sinode
 @endsection
 @section('content')
     <div class="row">
