@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
@@ -46,12 +48,31 @@ class UserController extends Controller
     {
         $loginType = filter_var($request->login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
         $credentials = [$loginType => $request->login, 'password' => $request->password];
-        if (Auth::attempt($credentials)) {
-            return redirect()->intended('dashboard');
+
+        if (RateLimiter::tooManyAttempts($this->throttleKey($request), 3)) {
+            $seconds = RateLimiter::availableIn($this->throttleKey($request));
+
+            $minutes = floor($seconds / 60);
+            $seconds %= 60;
+
+            $time = sprintf('%02d menit %02d detik', $minutes, $seconds);
+
+            return redirect()->back()->withErrors(['login' => "Terlalu banyak percobaan! Akun Anda terblokir sementara, Silakan coba lagi dalam {$time}"])->withInput();
         }
 
+        if (Auth::attempt($credentials)) {
+            RateLimiter::clear($this->throttleKey($request));
+            return redirect()->intended('/dashboard');
+        }
+
+        RateLimiter::hit($this->throttleKey($request), 120);
 
         return redirect()->back()->withErrors(['login' => 'Username atau Password salah!'])->withInput();
+    }
+
+    protected function throttleKey(Request $request)
+    {
+        return strtolower($request->input('login')) . '|' . $request->ip();
     }
 
     public function findById($id)
