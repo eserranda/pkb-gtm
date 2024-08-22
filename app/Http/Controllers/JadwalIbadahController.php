@@ -23,12 +23,13 @@ class JadwalIbadahController extends Controller
                 $query->where('kelompok', $filterData);
             }
 
-            if (auth()->user()->role == 'jemaat') {
+            if (auth()->user()->roles->first()->name === 'jemaat') {
                 $id_jemaat = Auth::user()->id_jemaat;
                 $data = $query->where('id_jemaat', $id_jemaat)->latest('created_at')->get();
             } else {
                 $data = $query->latest('created_at')->get();
             }
+
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('id_anggota_pkb', function ($row) {
