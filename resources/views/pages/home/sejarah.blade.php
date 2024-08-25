@@ -6,9 +6,7 @@
             <div class="row">
 
                 <div class="col-lg-8 col-12 mx-auto">
-                    <h2 class="text-white text-center">Selamat Datang</h2>
-
-                    <h5 class="text-center">Persekutuan Kaum Bapak Gereja Toraja Mamasa</h5>
+                    <h2 class="text-white text-center">Sejarah Singkat PKB GTM</h2>
                 </div>
             </div>
         </div>

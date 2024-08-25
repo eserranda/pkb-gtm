@@ -1,0 +1,2 @@
+@yield('hero')
+@yield('content')

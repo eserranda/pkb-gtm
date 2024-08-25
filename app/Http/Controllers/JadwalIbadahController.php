@@ -39,6 +39,9 @@ class JadwalIbadahController extends Controller
                         return '-';
                     }
                 })
+                ->editColumn('tanggal', function ($row) {
+                    return date('d-m-Y', strtotime($row->tanggal));
+                })
                 ->addColumn('action', function ($row) {
                     $btn = '<div class="d-flex justify-content-start align-items-center">';
                     $btn .= '<a class="btn btn-outline-secondary btn-sm mx-1" title="Edit" onclick="edit(' . $row->id . ')"> <i class="fas fa-pencil-alt"></i> </a>';

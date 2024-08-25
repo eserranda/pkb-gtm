@@ -48,6 +48,12 @@ Route::prefix('login')->controller(UserController::class)->group(function () {
 
 
 Route::get('/', [DashboardController::class, 'home']);
+Route::get('/visi-misi', [DashboardController::class, 'visiMisi']);
+Route::get('/sejarah', [DashboardController::class, 'sejarah']);
+Route::get('/list-gereja', [DashboardController::class, 'listGereja']);
+Route::get('/detail-gereja/{id}', [DashboardController::class, 'detailGereja'])->name('home.detail-gereja');
+
+
 Route::prefix('dashboard')->controller(DashboardController::class)->group(function () {
     Route::get('/', 'index')->name('dashboard.index')->middleware('auth');
 });

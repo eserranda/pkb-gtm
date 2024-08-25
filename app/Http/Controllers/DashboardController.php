@@ -30,6 +30,29 @@ class DashboardController extends Controller
         return view('pages.home.index', compact('data'));
     }
 
+    public function visiMisi()
+    {
+        return view('pages.home.visi-misi',);
+    }
+
+    public function sejarah()
+    {
+        return view('pages.home.sejarah',);
+    }
+
+    public function listGereja()
+    {
+        $gereja = Jemaat::all();
+        return view('pages.home.list-gereja', compact('gereja'));
+    }
+
+    public function detailGereja($id)
+    {
+        $gereja =  Jemaat::find($id);
+        $jadwal_ibadah =  JadwalIbadah::where('id_jemaat', $id)->get();
+        return view('pages.home.gereja', compact('gereja', 'jadwal_ibadah'));
+    }
+
     /**
      * Store a newly created resource in storage.
      */
