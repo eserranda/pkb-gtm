@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->string('jabatan');
-            $table->integer('no_tlp');
+            $table->string('no_tlp');
             $table->string('tahun_mulai');
             $table->string('tahun_selesai');
             // $table->string('ketua_umum');
