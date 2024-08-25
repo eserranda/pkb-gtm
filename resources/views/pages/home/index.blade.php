@@ -94,7 +94,7 @@
                                                     <div>
                                                         <h5 class="mb-2">{{ $d->nama_kegiatan }}</h5>
 
-                                                        <p class="mb-3">{{ $d->tempat }}</p>
+                                                        <p class="mb-3">{{ $d->keterangan }}</p>
                                                     </div>
                                                 </div>
 

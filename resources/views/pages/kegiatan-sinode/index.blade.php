@@ -39,6 +39,7 @@
                             <th>Nama Kegiatan</th>
                             <th>Waktu</th>
                             <th>Tempat</th>
+                            <th>Keterangan</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -159,7 +160,7 @@
                 buttons: [{
                         extend: 'excel',
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4]
+                            columns: [0, 1, 2, 3, 4, 5]
                         },
                         init: function(api, node, config) {
                             $(node).hide();
@@ -168,7 +169,7 @@
                     {
                         extend: 'print',
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4]
+                            columns: [0, 1, 2, 3, 4, 5]
                         },
                         init: function(api, node, config) {
                             $(node).hide();
@@ -200,6 +201,11 @@
                     {
                         data: 'tempat',
                         name: 'tempat',
+                        orderable: false,
+                    },
+                    {
+                        data: 'keterangan',
+                        name: 'keterangan',
                         orderable: false,
                     },
                     {

@@ -12,6 +12,7 @@ class KegiatanSinode extends Model
         'image',
         'tempat',
         'waktu',
+        'keterangan',
     ];
 
     use HasFactory;

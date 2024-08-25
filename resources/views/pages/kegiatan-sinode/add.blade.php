@@ -40,6 +40,14 @@
                             <div class="invalid-feedback"></div>
                         </div>
                     </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label class="col-form-label">Keterangan</label>
+                            <textarea class="form-control" name="keterangan" id="keterangan" rows="3" placeholder="Keterangan"></textarea>
+                            <div class="invalid-feedback"></div>
+
+                        </div>
+                    </div>
                     <button type="submit" class="btn btn-primary">Save</button>
                 </form>
             </div>

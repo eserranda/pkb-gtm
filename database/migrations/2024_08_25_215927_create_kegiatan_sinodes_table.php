@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nama_kegiatan');
             $table->string('tempat');
             $table->string('waktu')->nullable();
+            $table->string('keterangan')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();
         });

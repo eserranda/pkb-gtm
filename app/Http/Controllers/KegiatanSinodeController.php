@@ -73,6 +73,7 @@ class KegiatanSinodeController extends Controller
             'image' => $fileName ?? null,
             'tempat' => $request->tempat,
             'waktu' => $request->waktu,
+            'keterangan' => $request->keterangan
         ]);
         if ($save) {
             return response()->json([
