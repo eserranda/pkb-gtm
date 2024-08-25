@@ -29,6 +29,10 @@
                 </li>
 
                 <li class="nav-item">
+                    <a class="nav-link" href="/home-klasis">Klasis</a>
+                </li>
+
+                <li class="nav-item">
                     <a class="nav-link" href="/list-gereja">Gereja</a>
                 </li>
 

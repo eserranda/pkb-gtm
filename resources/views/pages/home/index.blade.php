@@ -77,4 +77,39 @@
             </div>
         </div>
     </section>
+
+    <section class="faq-section section-padding" id="section_4">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-6 col-12">
+                    <h2 class="mb-4">Pengurus Sinode</h2>
+                </div>
+
+                <div class="clearfix"></div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nama</th>
+                            <th scope="col">Jabatan</th>
+                            <th scope="col">No Telp</th>
+                            <th scope="col">Periode</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($pengurus as $d)
+                            <tr>
+                                <th scope="row">{{ $loop->iteration }}</th>
+                                <td>{{ $d->nama }}</td>
+                                <td>{{ $d->jabatan }}</td>
+                                <td>{{ $d->no_tlp }}</td>
+                                <td>{{ $d->tahun_mulai }} - {{ $d->tahun_selesai }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
 @endsection

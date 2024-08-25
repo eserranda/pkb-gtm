@@ -18,6 +18,7 @@
                     <ul class="submenu">
                         @if (auth()->user()->hasAnyRole(['super_admin', 'sinode']))
                             <li><a href="/surat-masuk-sinode">Surat Masuk</a></li>
+                            <li><a href="/pengurus-sinode">Pengurus Sinode</a></li>
                         @endif
                         @if (auth()->user()->hasAnyRole(['super_admin', 'klasis', 'sinode']))
                             <li><a href="/klasis">Data Klasis</a></li>

@@ -9,6 +9,7 @@ use App\Models\AnggotaPKB;
 use App\Models\JadwalIbadah;
 use Illuminate\Http\Request;
 use App\Models\AnggotaJemaat;
+use App\Models\PengurusSinode;
 
 class DashboardController extends Controller
 {
@@ -26,8 +27,14 @@ class DashboardController extends Controller
 
     public function home()
     {
-        $data = JadwalIbadah::where('kelompok', 'Kelompok I')->get();
-        return view('pages.home.index', compact('data'));
+        $pengurus  = PengurusSinode::get();
+        return view('pages.home.index', compact('pengurus'));
+    }
+
+    public function klasis()
+    {
+        $klasis = Klasis::get();
+        return view('pages.home.klasis', compact('klasis'));
     }
 
     public function visiMisi()

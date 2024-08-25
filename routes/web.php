@@ -15,6 +15,7 @@ use App\Http\Controllers\PengurusController;
 use App\Http\Controllers\DaftarKegiatanController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\JadwalIbadahController;
+use App\Http\Controllers\PengurusSinodeController;
 use App\Http\Controllers\RencanaAnggaranController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\SuratMasukSinodeController;
@@ -51,12 +52,24 @@ Route::get('/', [DashboardController::class, 'home']);
 Route::get('/visi-misi', [DashboardController::class, 'visiMisi']);
 Route::get('/sejarah', [DashboardController::class, 'sejarah']);
 Route::get('/list-gereja', [DashboardController::class, 'listGereja']);
+Route::get('/home-klasis', [DashboardController::class, 'klasis']);
 Route::get('/detail-gereja/{id}', [DashboardController::class, 'detailGereja'])->name('home.detail-gereja');
 
 
 Route::prefix('dashboard')->controller(DashboardController::class)->group(function () {
     Route::get('/', 'index')->name('dashboard.index')->middleware('auth');
 });
+
+Route::prefix('pengurus-sinode')->controller(PengurusSinodeController::class)->group(function () {
+    Route::get('/', 'index')->name('pengurus-sinode.index')->middleware('auth');
+    Route::post('/store', 'store');
+
+
+    Route::get('/create', 'create');
+    Route::get('/findById/{id}', 'findById');
+    Route::post('/update', 'update');
+    Route::delete('/destroy/{id}', 'destroy');
+})->middleware('auth');
 
 Route::prefix('surat-masuk-sinode')->controller(SuratMasukSinodeController::class)->group(function () {
     Route::get('/', 'index')->name('surat-masuk-sinode.index')->middleware('auth');
