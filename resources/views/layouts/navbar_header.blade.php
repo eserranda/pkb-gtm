@@ -60,7 +60,7 @@
 
           <!-- LOGO -->
           <div class="logo-box">
-              <a href="index.html" class="logo text-center">
+              <a href="/" class="logo text-center">
                   <span class="logo-lg">
                       {{-- <img src="{{ asset('assets') }}/images/logo-light.png" alt="" height="16"> --}}
                       <span class="logo-lg-text-light">PKB - GTM</span>
