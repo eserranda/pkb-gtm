@@ -9,6 +9,7 @@ use App\Models\AnggotaPKB;
 use App\Models\JadwalIbadah;
 use Illuminate\Http\Request;
 use App\Models\AnggotaJemaat;
+use App\Models\KegiatanSinode;
 use App\Models\PengurusSinode;
 
 class DashboardController extends Controller
@@ -28,7 +29,8 @@ class DashboardController extends Controller
     public function home()
     {
         $pengurus  = PengurusSinode::get();
-        return view('pages.home.index', compact('pengurus'));
+        $kegiatan = KegiatanSinode::get();
+        return view('pages.home.index', compact('pengurus', 'kegiatan'));
     }
 
     public function klasis()

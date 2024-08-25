@@ -78,6 +78,40 @@
         </div>
     </section>
 
+    <section class="explore-section section-padding mb-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="design-tab-pane" role="tabpanel"
+                            aria-labelledby="design-tab" tabindex="0">
+                            <div class="row">
+                                @foreach ($kegiatan as $d)
+                                    <div class="col-lg-4 col-md-6 col-12 mb-4">
+                                        <div class="custom-block bg-white shadow-lg">
+                                            <a href="topics-detail.html">
+                                                <div class="d-flex">
+                                                    <div>
+                                                        <h5 class="mb-2">{{ $d->nama_kegiatan }}</h5>
+
+                                                        <p class="mb-3">{{ $d->tempat }}</p>
+                                                    </div>
+                                                </div>
+
+                                                <img src="{{ asset('/storage/images/' . $d->image) }}"
+                                                    class="img-fluid rounded-top w-100" alt="Image">
+                                            </a>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="faq-section section-padding" id="section_4">
         <div class="container">
             <div class="row">
