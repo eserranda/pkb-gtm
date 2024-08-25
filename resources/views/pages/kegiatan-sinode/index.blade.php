@@ -10,7 +10,7 @@
 @endpush
 
 @section('page_title')
-    Pengurus Sinode
+    Kegiatan Sinode
 @endsection
 @section('content')
     <div class="row">
@@ -18,26 +18,7 @@
             <div class="card-box table-responsive">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <div class="d-flex align-items-center ">
-                        <select class="form-control custom-select col-md-10" id="filterData">
-                            {{-- <h5 class="col-md-2 mx-0">Filter : </h5> --}}
-                            <option value="" selected disabled>Pilih Jabatan</option>
-                            <option value="Ketua Umum">Ketua Umum</option>
-                            <option value="Ketua I">Ketua I</option>
-                            <option value="Ketua II">Ketua II</option>
-                            <option value="Ketua III">Ketua III</option>
-                            <option value="Sekretaris Umum">Sekretaris Umum</option>
-                            <option value="Wakil Sekretaris">Wakil Sekretaris</option>
-                            <option value="Bendahara">Bendahara</option>
-                        </select>
-                        <button type="button" class="btn btn-light waves-effect col-3 mx-1" id="reload">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20"
-                                viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none"
-                                stroke-linecap="round" stroke-linejoin="round">`
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" />
-                                <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4" />
-                            </svg>
-                        </button>
+                        <H3>Data Kegiatan PKB Sinode</H3>
                     </div>
 
                     <div class="d-flex gap-2">
@@ -54,10 +35,10 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Nama</th>
-                            <th>Jabatan</th>
-                            <th>No Tlp.</th>
-                            <th>Periode</th>
+                            <th>Image</th>
+                            <th>Nama Kegiatan</th>
+                            <th>Waktu</th>
+                            <th>Tempat</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -69,8 +50,8 @@
         </div>
     </div> <!-- end row -->
 
-    @include('pages.pengurus-sinode.add')
-    @include('pages.pengurus-sinode.edit')
+    @include('pages.kegiatan-sinode.add')
+    @include('pages.kegiatan-sinode.edit')
 @endsection
 
 @push('scripts')
@@ -128,7 +109,7 @@
                 if (result.isConfirmed) {
                     var csrfToken = $('meta[name="csrf-token"]').attr('content');
                     $.ajax({
-                        url: '/pengurus-sinode/destroy/' + id,
+                        url: '/kegiatan-sinode/destroy/' + id,
                         type: 'DELETE',
                         data: {
                             _token: csrfToken
@@ -194,7 +175,7 @@
                         }
                     },
                 ],
-                ajax: "{{ route('pengurus-sinode.index') }}",
+                ajax: "{{ route('kegiatan-sinode.index') }}",
                 columns: [{
                         data: 'DT_RowIndex',
                         name: '#',
@@ -202,23 +183,23 @@
 
                     },
                     {
-                        data: 'nama',
-                        name: 'nama',
+                        data: 'image',
+                        name: 'image',
                         orderable: false,
                     },
                     {
-                        data: 'jabatan',
-                        name: 'jabatan',
+                        data: 'nama_kegiatan',
+                        name: 'nama_kegiatan',
                         orderable: false,
                     },
                     {
-                        data: 'no_tlp',
-                        name: 'no_tlp',
+                        data: 'waktu',
+                        name: 'waktu',
                         orderable: false,
                     },
                     {
-                        data: 'periode',
-                        name: 'periode',
+                        data: 'tempat',
+                        name: 'tempat',
                         orderable: false,
                     },
                     {
@@ -232,13 +213,13 @@
 
             $('#filterData').on('change', function() {
                 const selectedData = $(this).val();
-                datatable.ajax.url('{{ route('pengurus-sinode.index') }}?jabatan=' + selectedData)
+                datatable.ajax.url('{{ route('kegiatan-sinode.index') }}?jabatan=' + selectedData)
                     .load();
             });
 
             $('#reload').on('click', function() {
                 $('#filterData').val('');
-                datatable.ajax.url('{{ route('pengurus-sinode.index') }}').load();
+                datatable.ajax.url('{{ route('kegiatan-sinode.index') }}').load();
             });
         });
 
